@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="getAllMovieSQL" class="java.lang.String">
+        <constructor-arg value="select m.id,  m.name_russian,  m.name_native,  m.released_date,  m.rating,  m.price,  m.picture_path  from movieland.movie m;"/>
+    </bean>
+
+
+</beans>
