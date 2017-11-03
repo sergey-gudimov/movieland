@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by dp-ptcstd-15 on 10/30/2017.
- */
+
 @Controller
 @RequestMapping(value = "/v1/movie")
 public class MovieController {

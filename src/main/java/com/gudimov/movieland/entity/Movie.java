@@ -1,17 +1,16 @@
 package com.gudimov.movieland.entity;
 
-import java.util.Date;
 
-/**
- * Created by dp-ptcstd-15 on 10/30/2017.
- */
+import java.time.LocalDate;
+
+
 public class Movie {
     private int id;
     private String nameRussian;
     private String nameNative;
-    private Date yearOfRelease;
-    private float rating;
-    private float price;
+    private LocalDate yearOfRelease;
+    private double rating;
+    private double price;
     private String picturePath;
 
     public int getId() {
@@ -38,27 +37,27 @@ public class Movie {
         this.nameNative = nameNative;
     }
 
-    public Date getYearOfRelease() {
+    public LocalDate getYearOfRelease() {
         return yearOfRelease;
     }
 
-    public void setYearOfRelease(Date yearOfRelease) {
+    public void setYearOfRelease(LocalDate yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
