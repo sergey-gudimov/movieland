@@ -12,24 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class JsonJacksonConverter {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    // thread-safe
-    private ObjectMapper objectMapper = new ObjectMapper();
 
-    public <T>  String parseMovieToJson(T  item){
+    static ObjectMapper  objectMapper = new ObjectMapper();
+
+    public <T> String parseItemToJson(T item) {
+
         log.info("Start parsing item to json {}", item);
-        String movieJson = parseValueToJson(item);
-        log.info("Movie {} is received.", item);
-        return movieJson;
-    }
-
-    private <T> String parseValueToJson( T item) {
-        ObjectMapper objectMapper = new ObjectMapper();
         String itemJson = null;
         try {
              itemJson = objectMapper.writeValueAsString(item);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        log.info("Item {} is received.", item);
         return itemJson;
     }
 }
