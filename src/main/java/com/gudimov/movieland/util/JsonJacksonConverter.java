@@ -6,9 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by dp-ptcstd-15 on 10/30/2017.
- */
+
 @Service
 public class JsonJacksonConverter {
     private final Logger log = LoggerFactory.getLogger(getClass());

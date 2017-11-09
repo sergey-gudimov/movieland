@@ -32,7 +32,7 @@ public class MovieRowMapperTest {
         assertEquals( 1,actualMovie.getId());
         assertEquals( "Наме 1",actualMovie.getNameRussian());
         assertEquals( "Name 1",actualMovie.getNameNative());
-        assertEquals(LocalDate.of(2017,1,1),actualMovie.getYearOfRelease());
+        assertEquals(2017,actualMovie.getYearOfRelease());
         assertEquals(1.2,0,actualMovie.getRating());
         assertEquals(  45,0,actualMovie.getPrice());
         assertEquals( "path 1",actualMovie.getPicturePath());
@@ -41,7 +41,7 @@ public class MovieRowMapperTest {
         assertEquals( 2,actualMovie.getId());
         assertEquals( "Наме 2",actualMovie.getNameRussian());
         assertEquals( "Name 2",actualMovie.getNameNative());
-        assertEquals( LocalDate.of(2018,1,1),actualMovie.getYearOfRelease());
+        assertEquals( 2018,actualMovie.getYearOfRelease());
         assertEquals( 3.4,0,actualMovie.getRating());
         assertEquals( 60,0,actualMovie.getPrice());
         assertEquals( "path 2",actualMovie.getPicturePath());

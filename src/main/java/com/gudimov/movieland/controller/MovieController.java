@@ -24,8 +24,7 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @Autowired
-    private JsonJacksonConverter jsonJacksonConverter;
+    static private JsonJacksonConverter jsonJacksonConverter = new JsonJacksonConverter();
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody

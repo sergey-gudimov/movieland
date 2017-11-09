@@ -15,9 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * Created by dp-ptcstd-15 on 10/31/2017.
- */
 
 @Repository
 public class MovieDaoJdbc implements MovieDao {

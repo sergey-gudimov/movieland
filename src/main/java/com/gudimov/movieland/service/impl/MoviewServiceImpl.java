@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by dp-ptcstd-15 on 10/31/2017.
- */
+
 @Service
 public class MoviewServiceImpl implements MovieService {
     @Autowired

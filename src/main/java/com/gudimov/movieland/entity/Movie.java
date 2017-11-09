@@ -8,7 +8,7 @@ public class Movie {
     private int id;
     private String nameRussian;
     private String nameNative;
-    private LocalDate yearOfRelease;
+    private int yearOfRelease;
     private double rating;
     private double price;
     private String picturePath;
@@ -37,12 +37,12 @@ public class Movie {
         this.nameNative = nameNative;
     }
 
-    public LocalDate getYearOfRelease() {
+    public int getYearOfRelease() {
         return yearOfRelease;
     }
 
     public void setYearOfRelease(LocalDate yearOfRelease) {
-        this.yearOfRelease = yearOfRelease;
+        this.yearOfRelease = yearOfRelease.getYear();
     }
 
     public double getRating() {

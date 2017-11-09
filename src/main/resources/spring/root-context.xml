@@ -13,13 +13,10 @@
         <context:exclude-filter type="regex" expression="com\.gudimov\.movieland\.controller\..*"/>
     </context:component-scan>
 
-    <bean id="myPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="file:/spring/db.property"/>
-        <property name="placeholderPrefix" value="${db:"/>
-    </bean>
+    <context:property-placeholder location="classpath:db.properties"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${db:driverClassName}"/>
+        <property name="driverClassName" value="${db.driverClassName}"/>
         <property name="url" value="${db.url}"/>
         <property name="username" value="${db.username}"/>
         <property name="password" value="${db.password}"/>
