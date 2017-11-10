@@ -2,6 +2,7 @@ package com.gudimov.movieland.service.impl;
 
 import com.gudimov.movieland.dao.MovieDao;
 import com.gudimov.movieland.entity.Movie;
+import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import com.gudimov.movieland.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class MoviewServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getAll() {
-        return movieDao.getAllMoview();
+        return movieDao.getAll();
+    }
+
+    @Override
+    public List<MovieWithGenreCountry> getRandom() {
+        return movieDao.getRandom();
     }
 }

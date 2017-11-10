@@ -1,6 +1,7 @@
 package com.gudimov.movieland.controller;
 
 import com.gudimov.movieland.entity.Movie;
+import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.util.JsonJacksonConverter;
 import org.slf4j.Logger;
@@ -31,6 +32,21 @@ public class MovieController {
     public ResponseEntity<String> getAllMovie() {
         log.info("Sending request to get all movie");
         List<Movie> movie = movieService.getAll();
+        String movieJson = jsonJacksonConverter.parseItemToJson(movie);
+        log.info("Movie {} is received", movieJson);
+        if (movieJson == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(movieJson, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/random", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public ResponseEntity<String> getRandomMovie() {
+        log.info("Sending request to get random movie");
+        List<MovieWithGenreCountry> movie = movieService.getRandom();
+
         String movieJson = jsonJacksonConverter.parseItemToJson(movie);
         log.info("Movie {} is received", movieJson);
         if (movieJson == null) {
