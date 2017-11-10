@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value = "/v1/movie")
+@RequestMapping(value = "/v1/movie", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 public class MovieController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -27,7 +27,7 @@ public class MovieController {
 
     static private JsonJacksonConverter jsonJacksonConverter = new JsonJacksonConverter();
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping
     @ResponseBody
     public ResponseEntity<String> getAllMovie() {
         log.info("Sending request to get all movie");
@@ -41,7 +41,7 @@ public class MovieController {
         }
     }
 
-    @RequestMapping(value = "/random", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/random")
     @ResponseBody
     public ResponseEntity<String> getRandomMovie() {
         log.info("Sending request to get random movie");
