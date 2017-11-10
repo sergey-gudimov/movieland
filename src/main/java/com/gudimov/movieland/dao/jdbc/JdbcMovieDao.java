@@ -1,7 +1,7 @@
 package com.gudimov.movieland.dao.jdbc;
 
 import com.gudimov.movieland.dao.MovieDao;
-import com.gudimov.movieland.dao.jdbc.enricher.MovieEnricher;
+import com.gudimov.movieland.service.enricher.MovieEnricher;
 import com.gudimov.movieland.dao.jdbc.mapper.MovieRowMapper;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.entity.MovieWithGenreCountry;
@@ -46,7 +46,7 @@ public class JdbcMovieDao implements MovieDao {
         log.info("Finish query to get movie from DB");
         List<MovieWithGenreCountry> movieWithGenreCountries;
         log.info("Finish enriched with genres");
-        movieWithGenreCountries=movieEnricher.EnrichMovieWithGenreCountry(listMovie);
+        movieWithGenreCountries=movieEnricher.enrichMovieWithGenreCountry(listMovie);
         log.info("Finish enriched with countries");
 
         return movieWithGenreCountries;

@@ -1,19 +1,19 @@
-package com.gudimov.movieland.dao.jdbc.enricher;
+package com.gudimov.movieland.service.enricher;
 
 import com.gudimov.movieland.entity.*;
 import com.gudimov.movieland.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Repository
+@Service
 public class MovieEnricher {
 
     @Autowired
     private MovieService movieService;
 
-    public List<MovieWithGenreCountry> EnrichMovieWithGenreCountry(List<MovieWithGenreCountry> listMovie) {
+    public List<MovieWithGenreCountry> enrichMovieWithGenreCountry(List<MovieWithGenreCountry> listMovie) {
         for (MovieWithGenreCountry movie : listMovie) {
             movie.setGenre(getGenreListByMovieId(movie.getId()));
             movie.setCountry(getCountryListByMovieId(movie.getId()));
@@ -26,7 +26,7 @@ public class MovieEnricher {
         List<Genre> genreList = new ArrayList();
 
         for (MovieGenre movieGenre : movieGenreAll) {
-            if(movieGenre.getMovieId() == id){
+            if (movieGenre.getMovieId() == id) {
                 Genre genre = new Genre();
                 genre.setId(movieGenre.getGenreId());
                 genre.setName(movieGenre.getGenreName());
@@ -41,7 +41,7 @@ public class MovieEnricher {
         List<Country> countryList = new ArrayList();
 
         for (MovieCountry movieCountry : movieCountryAll) {
-            if(movieCountry.getMovieId() == id){
+            if (movieCountry.getMovieId() == id) {
                 Country contry = new Country();
                 contry.setId(movieCountry.getCountryId());
                 contry.setName(movieCountry.getCountryName());
