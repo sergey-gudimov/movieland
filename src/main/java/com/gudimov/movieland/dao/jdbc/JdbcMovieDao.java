@@ -4,7 +4,6 @@ import com.gudimov.movieland.dao.MovieDao;
 import com.gudimov.movieland.dao.jdbc.enricher.MovieEnricher;
 import com.gudimov.movieland.dao.jdbc.mapper.MovieRowMapper;
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.MovieGenre;
 import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,9 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     private String getRandomMovieSQL;
 
+    @Autowired
+    private MovieEnricher movieEnricher;
+
     @Override
     public List<Movie> getAll() {
         log.info("Start query to get movie from DB");
@@ -44,7 +46,7 @@ public class JdbcMovieDao implements MovieDao {
         log.info("Finish query to get movie from DB");
         List<MovieWithGenreCountry> movieWithGenreCountries;
         log.info("Finish enriched with genres");
-        movieWithGenreCountries=new MovieEnricher().EnrichMovieWithGenreCountry(listMovie);
+        movieWithGenreCountries=movieEnricher.EnrichMovieWithGenreCountry(listMovie);
         log.info("Finish enriched with countries");
 
         return movieWithGenreCountries;

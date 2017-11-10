@@ -1,11 +1,8 @@
 package com.gudimov.movieland.dao.jdbc;
 
 import com.gudimov.movieland.dao.MovieCountryDao;
-import com.gudimov.movieland.dao.MovieGenreDao;
 import com.gudimov.movieland.dao.jdbc.mapper.MovieCountryRowMapper;
-import com.gudimov.movieland.dao.jdbc.mapper.MovieGenreRowMapper;
 import com.gudimov.movieland.entity.MovieCountry;
-import com.gudimov.movieland.entity.MovieGenre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

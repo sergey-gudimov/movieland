@@ -1,7 +1,6 @@
 package com.gudimov.movieland.dao.jdbc.mapper;
 
 import com.gudimov.movieland.entity.MovieCountry;
-import com.gudimov.movieland.entity.MovieGenre;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

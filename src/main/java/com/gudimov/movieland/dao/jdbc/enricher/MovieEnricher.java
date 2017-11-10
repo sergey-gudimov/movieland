@@ -3,9 +3,11 @@ package com.gudimov.movieland.dao.jdbc.enricher;
 import com.gudimov.movieland.entity.*;
 import com.gudimov.movieland.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository
 public class MovieEnricher {
 
     @Autowired

@@ -14,10 +14,10 @@
             m.rating,
             m.price,
             m.picture_path
-        from movieland.movie;"/>
+        from movieland.movie m;"/>
     </bean>
 
-    <bean id="getRandomMovieSql" class="java.lang.String">
+    <bean id="getRandomMovieSQL" class="java.lang.String">
         <constructor-arg value="
         select
             m.id,
@@ -34,21 +34,21 @@
 
     <bean id="getMovieCountrySQL" class="java.lang.String">
         <constructor-arg value="
-        SELECT
+        select
             mc.country_id,
             c.name country_name,
             mc.movie_id
-        FROM movieland.movie_country mc
+        from movieland.movie_country mc
         join movieland.country c on c.id = mc.country_id;"/>
     </bean>
 
     <bean id="getMovieGenreSQL" class="java.lang.String">
         <constructor-arg value="
-        SELECT
+        select
             mg.movie_id,
-            g.name genreName,
+            g.name genre_name,
             mg.genre_id
-        FROM movieland.genre g
-        JOIN movieland.movie_genre mg on mg.genre_id = g.id;"/>
+        from movieland.genre g
+        join movieland.movie_genre mg on mg.genre_id = g.id;"/>
     </bean>
 </beans>
