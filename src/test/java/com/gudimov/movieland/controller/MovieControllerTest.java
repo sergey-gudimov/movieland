@@ -135,9 +135,9 @@ public class MovieControllerTest {
         genre2.setName("мелодрама");
         movieSecond.setGenre(Arrays.asList(genre1, genre2));
 
-        when(movieServiceMock.getAll()).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getRandom()).thenReturn(Arrays.asList(movieFirst, movieSecond));
 
-        mockMvc.perform(get("/v1/movie")).andExpect(status().isOk())
+        mockMvc.perform(get("/v1/movie/random")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id", is(1)))
@@ -172,7 +172,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("$[1].genre[1].name", is("мелодрама")))
         ;
         //Verify that the findAll() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getAll();
+        verify(movieServiceMock, times(1)).getRandom();
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);
