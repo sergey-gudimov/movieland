@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class MovieRowMapper implements RowMapper<Movie> {
+public  class  MovieRowMapper <T extends Movie> implements RowMapper<T > {
     @Override
-    public Movie mapRow(ResultSet resultSet, int i) throws SQLException {
-        Movie movie = new Movie();
+    public T mapRow(ResultSet resultSet, int i) throws SQLException {
+        T movie;
+        movie = (T) new Movie();
         movie.setId(resultSet.getInt("id"));
         movie.setNameRussian(resultSet.getString("name_Russian"));
         movie.setNameNative(resultSet.getString("name_Native"));

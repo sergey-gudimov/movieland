@@ -22,7 +22,7 @@ public class Country {
 
     @Override
     public String toString() {
-        return "Country{" +
+        return "Genre{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
