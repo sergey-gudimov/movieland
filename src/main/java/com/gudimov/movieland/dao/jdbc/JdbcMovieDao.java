@@ -28,8 +28,7 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     private String getRandomMovieSQL;
 
-    @Autowired
-    private MovieEnricher movieEnricher;
+
 
     @Override
     public List<Movie> getAll() {
@@ -44,12 +43,7 @@ public class JdbcMovieDao implements MovieDao {
         log.info("Start query to get random movie from DB");
         List<MovieWithGenreCountry> listMovie = jdbcTemplate.query(getRandomMovieSQL, new MovieRowMapper<MovieWithGenreCountry>());
         log.info("Finish query to get movie from DB");
-        List<MovieWithGenreCountry> movieWithGenreCountries;
-        log.info("Finish enriched with genres");
-        movieWithGenreCountries=movieEnricher.enrichMovieWithGenreCountry(listMovie);
-        log.info("Finish enriched with countries");
-
-        return movieWithGenreCountries;
+        return listMovie;
     }
 
 
