@@ -10,10 +10,14 @@
             </fileNamePattern>
             <maxFileSize>5MB</maxFileSize>
         </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
     </appender>
 
     <root level="DEBUG">
         <appender-ref ref="file"/>
     </root>
+
 
 </configuration>
