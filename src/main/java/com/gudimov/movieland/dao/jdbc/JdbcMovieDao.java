@@ -32,17 +32,17 @@ public class JdbcMovieDao implements MovieDao {
 
     @Override
     public List<Movie> getAll() {
-        log.info("Start query to get movie from DB");
+        log.debug("Start query to get movie from DB");
         List<Movie> listMovie = jdbcTemplate.query(getAllMovieSQL, new MovieRowMapper<Movie>());
-        log.info("Finish query to get movie from DB");
+        log.debug("Finish query to get movie from DB");
         return listMovie;
     }
 
     @Override
     public List<MovieWithGenreCountry> getRandom() {
-        log.info("Start query to get random movie from DB");
+        log.debug("Start query to get random movie from DB");
         List<MovieWithGenreCountry> listMovie = jdbcTemplate.query(getRandomMovieSQL, new MovieRowMapper<MovieWithGenreCountry>());
-        log.info("Finish query to get movie from DB");
+        log.debug("Finish query to get movie from DB");
         return listMovie;
     }
 
