@@ -1,9 +1,9 @@
 package com.gudimov.movieland.dao;
 
-import com.gudimov.movieland.entity.MovieGenre;
+import com.gudimov.movieland.dao.link.LinkMovieGenre;
 
 import java.util.List;
 
 public interface MovieGenreDao {
-    List<MovieGenre> getAll();
+    List<LinkMovieGenre> getAll();
 }

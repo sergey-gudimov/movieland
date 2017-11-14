@@ -1,7 +1,8 @@
 package com.gudimov.movieland.controller;
 
+import com.gudimov.movieland.dto.MovieDto;
+import com.gudimov.movieland.dto.MovieRandomDto;
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.util.JsonJacksonConverter;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,29 +33,30 @@ public class MovieController {
     @ResponseBody
     public ResponseEntity<String> getAllMovie() {
         log.info("Sending request to get all movie");
-        List<Movie> movie = movieService.getAll();
-        String movieJson = jsonJacksonConverter.parseItemToJson(movie);
+        List<Movie> movies = movieService.getAll();
+        String movieJson = jsonJacksonConverter.parseItemToJson(movies);
         log.info("Movie {} is received", movieJson);
-        if (movieJson == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<>(movieJson, HttpStatus.OK);
+        List<MovieDto> movieDtos = new ArrayList<>();
+        for (Movie movie : movies) {
+            movieDtos.add(new MovieDto(movie));
         }
+        return new ResponseEntity<>(movieJson, HttpStatus.OK);
+
     }
 
     @RequestMapping(value = "/random")
     @ResponseBody
     public ResponseEntity<String> getRandomMovie() {
         log.info("Sending request to get random movie");
-        List<MovieWithGenreCountry> movie = movieService.getRandom();
-
-        String movieJson = jsonJacksonConverter.parseItemToJson(movie);
-        log.info("Movie {} is received", movieJson);
-        if (movieJson == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<>(movieJson, HttpStatus.OK);
+        List<Movie> movies = movieService.getRandom();
+        List<MovieRandomDto> movieDtos = new ArrayList<>();
+        for (Movie movie : movies) {
+            movieDtos.add(new MovieRandomDto(movie));
         }
+        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        log.info("Movie {} is received", movieJson);
+        return new ResponseEntity<>(movieJson, HttpStatus.OK);
+
     }
 }
 

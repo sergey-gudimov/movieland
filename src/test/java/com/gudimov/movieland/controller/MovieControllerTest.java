@@ -3,7 +3,6 @@ package com.gudimov.movieland.controller;
 import com.gudimov.movieland.entity.Country;
 import com.gudimov.movieland.entity.Genre;
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import com.gudimov.movieland.service.MovieService;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,7 +88,7 @@ public class MovieControllerTest {
 
     @Test
     public void getRandomMovie() throws Exception {
-        MovieWithGenreCountry movieFirst = new MovieWithGenreCountry();
+        Movie movieFirst = new Movie();
         movieFirst.setId(1);
         movieFirst.setNameNative("Day");
         movieFirst.setNameRussian("День");
@@ -112,7 +111,7 @@ public class MovieControllerTest {
         genre2.setName("Genre 2");
         movieFirst.setGenre(Arrays.asList(genre1, genre2));
 
-        MovieWithGenreCountry movieSecond = new MovieWithGenreCountry();
+        Movie movieSecond = new Movie();
         movieSecond.setId(2);
         movieSecond.setNameNative("Sea");
         movieSecond.setNameRussian("Море");

@@ -1,6 +1,6 @@
-package com.gudimov.movieland.entity;
+package com.gudimov.movieland.dao.link;
 
-public class MovieGenre {
+public class LinkMovieGenre {
     private  int movieId;
     private String genreName;
     private int genreId;
@@ -31,7 +31,7 @@ public class MovieGenre {
 
     @Override
     public String toString() {
-        return "MovieGenre{" +
+        return "LinkMovieGenre{" +
                 "movieId=" + movieId +
                 ", genreName='" + genreName + '\'' +
                 ", genreId=" + genreId +

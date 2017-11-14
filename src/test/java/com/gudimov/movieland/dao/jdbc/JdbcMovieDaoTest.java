@@ -1,7 +1,5 @@
 package com.gudimov.movieland.dao.jdbc;
 
-import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +19,13 @@ public class JdbcMovieDaoTest {
 
     @Test
     public void getAll() throws Exception {
-        List<Movie> allMovie = jdbcMovieDao.getAll();
+        List allMovie = jdbcMovieDao.getAll();
         assertNotEquals(allMovie.size(), 0);
     }
 
     @Test
     public void getRandom() throws Exception {
-        List<MovieWithGenreCountry> randomMovie = jdbcMovieDao.getRandom();
+        List randomMovie = jdbcMovieDao.getRandom();
         assertNotEquals(randomMovie.size(), 0);
     }
 

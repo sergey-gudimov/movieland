@@ -1,18 +1,17 @@
 package com.gudimov.movieland.service;
 
+import com.gudimov.movieland.dao.link.LinkMovieCountry;
+import com.gudimov.movieland.dao.link.LinkMovieGenre;
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.MovieCountry;
-import com.gudimov.movieland.entity.MovieGenre;
-import com.gudimov.movieland.entity.MovieWithGenreCountry;
 
 import java.util.List;
 
 public interface MovieService {
     List<Movie> getAll();
 
-    List<MovieWithGenreCountry> getRandom();
+    List<Movie> getRandom();
 
-    List<MovieGenre> getMovieGenreAll();
+    List<LinkMovieGenre> getMovieGenreAll();
 
-    List<MovieCountry> getMovieCountryAll();
+    List<LinkMovieCountry> getMovieCountryAll();
 }

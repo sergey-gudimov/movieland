@@ -1,6 +1,6 @@
 package com.gudimov.movieland.dao.jdbc.mapper;
 
-import com.gudimov.movieland.entity.MovieGenre;
+import com.gudimov.movieland.dao.link.LinkMovieGenre;
 import org.junit.Test;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class MovieGenreRowMapperTest {
+public class LinkMovieGenreRowMapperTest {
     @Test
     public void mapRow() throws Exception {
 
@@ -21,7 +21,7 @@ public class MovieGenreRowMapperTest {
 
         MovieGenreRowMapper movieGenreRowMapper = new MovieGenreRowMapper();
 
-        MovieGenre actualMovie = movieGenreRowMapper.mapRow(resultSet, 0);
+        LinkMovieGenre actualMovie = movieGenreRowMapper.mapRow(resultSet, 0);
         assertEquals( 1,actualMovie.getMovieId());
         assertEquals( 11,actualMovie.getGenreId());
         assertEquals( "Жах",actualMovie.getGenreName());

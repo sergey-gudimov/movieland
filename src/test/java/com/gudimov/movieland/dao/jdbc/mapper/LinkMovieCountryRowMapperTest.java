@@ -1,6 +1,6 @@
 package com.gudimov.movieland.dao.jdbc.mapper;
 
-import com.gudimov.movieland.entity.MovieCountry;
+import com.gudimov.movieland.dao.link.LinkMovieCountry;
 import org.junit.Test;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class MovieCountryRowMapperTest {
+public class LinkMovieCountryRowMapperTest {
     @Test
     public void mapRow() throws Exception {
 
@@ -21,7 +21,7 @@ public class MovieCountryRowMapperTest {
 
         MovieCountryRowMapper movieCountryRowMapper = new MovieCountryRowMapper();
 
-        MovieCountry actualMovie = movieCountryRowMapper.mapRow(resultSet, 0);
+        LinkMovieCountry actualMovie = movieCountryRowMapper.mapRow(resultSet, 0);
         assertEquals( 1,actualMovie.getMovieId());
         assertEquals( 11,actualMovie.getCountryId());
         assertEquals( "UA",actualMovie.getCountryName());
