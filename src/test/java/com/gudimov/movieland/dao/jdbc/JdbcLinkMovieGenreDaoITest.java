@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/spring/root-context.xml"})
-public class JdbcLinkMovieGenreDaoTest {
+public class JdbcLinkMovieGenreDaoITest {
 
     @Autowired
     private JdbcMovieGenreDao jdbcMovieGenreDao;

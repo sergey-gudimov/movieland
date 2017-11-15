@@ -3,13 +3,13 @@ package com.gudimov.movieland.dto;
 import com.gudimov.movieland.entity.Movie;
 
 public class MovieDto {
-    private int id;
-    private String nameRussian;
-    private String nameNative;
-    private int yearOfRelease;
-    private double rating;
-    private double price;
-    private String picturePath;
+    private final int id;
+    private final String nameRussian;
+    private final String nameNative;
+    private final int yearOfRelease;
+    private final double rating;
+    private final double price;
+    private final String picturePath;
 
     public MovieDto(Movie movie) {
         this.id = movie.getId();

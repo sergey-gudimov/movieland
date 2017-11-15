@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class JsonJacksonConverter {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static ObjectMapper  objectMapper = new ObjectMapper();
+    private static final ObjectMapper  objectMapper = new ObjectMapper();
 
     public <T> String parseItemToJson(T item) {
 

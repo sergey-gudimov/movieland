@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class JdbcMovieGenreDao implements MovieGenreDao {
-    private static MovieGenreRowMapper movieGenreRowMapper = new MovieGenreRowMapper();
+    private static final MovieGenreRowMapper movieGenreRowMapper = new MovieGenreRowMapper();
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

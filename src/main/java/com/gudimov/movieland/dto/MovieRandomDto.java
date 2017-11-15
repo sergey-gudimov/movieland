@@ -7,15 +7,15 @@ import com.gudimov.movieland.entity.Movie;
 import java.util.List;
 
 public class MovieRandomDto {
-    private int id;
-    private String nameRussian;
-    private String nameNative;
-    private int yearOfRelease;
-    private double rating;
-    private double price;
-    private String picturePath;
-    private List<Genre> Genre;
-    private List<Country> Country;
+    private final int id;
+    private final String nameRussian;
+    private final String nameNative;
+    private final int yearOfRelease;
+    private final double rating;
+    private final double price;
+    private final String picturePath;
+    private final List<Genre> Genre;
+    private final List<Country> Country;
 
     public MovieRandomDto(Movie movie) {
         this.id = movie.getId();

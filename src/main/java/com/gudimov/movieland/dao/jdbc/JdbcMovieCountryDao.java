@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class JdbcMovieCountryDao implements MovieCountryDao {
-    private static MovieCountryRowMapper movieCountryRowMapper = new MovieCountryRowMapper();
+    private static final MovieCountryRowMapper movieCountryRowMapper = new MovieCountryRowMapper();
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

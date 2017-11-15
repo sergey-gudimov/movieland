@@ -11,7 +11,7 @@ public interface MovieService {
 
     List<Movie> getRandom();
 
-    List<LinkMovieGenre> getMovieGenreAll();
+    List<LinkMovieGenre> getLinkMovieGenreAll();
 
-    List<LinkMovieCountry> getMovieCountryAll();
+    List<LinkMovieCountry> getLinkMovieCountryAll();
 }

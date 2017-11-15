@@ -49,12 +49,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<LinkMovieGenre> getMovieGenreAll() {
+    public List<LinkMovieGenre> getLinkMovieGenreAll() {
         return movieGenreDao.getAll();
     }
 
     @Override
-    public List<LinkMovieCountry> getMovieCountryAll() {
+    public List<LinkMovieCountry> getLinkMovieCountryAll() {
         return movieCountryDao.getAll();
     }
 }

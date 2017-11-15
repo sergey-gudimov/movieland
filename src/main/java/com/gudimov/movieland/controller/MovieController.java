@@ -27,19 +27,20 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    static private JsonJacksonConverter jsonJacksonConverter = new JsonJacksonConverter();
+    static private final JsonJacksonConverter jsonJacksonConverter = new JsonJacksonConverter();
 
     @RequestMapping
     @ResponseBody
     public ResponseEntity<String> getAllMovie() {
         log.info("Sending request to get all movie");
         List<Movie> movies = movieService.getAll();
-        String movieJson = jsonJacksonConverter.parseItemToJson(movies);
-        log.info("Movie {} is received", movieJson);
         List<MovieDto> movieDtos = new ArrayList<>();
         for (Movie movie : movies) {
             movieDtos.add(new MovieDto(movie));
         }
+        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        log.info("Movie {} is received", movieJson);
+
         return new ResponseEntity<>(movieJson, HttpStatus.OK);
 
     }

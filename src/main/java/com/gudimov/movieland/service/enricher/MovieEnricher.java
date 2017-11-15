@@ -24,7 +24,7 @@ public class MovieEnricher {
     }
 
     private List<Genre> getGenreListByMovieId(int id) {
-        List<LinkMovieGenre> linkMovieGenreAll = movieService.getMovieGenreAll();
+        List<LinkMovieGenre> linkMovieGenreAll = movieService.getLinkMovieGenreAll();
         List<Genre> genreList = new ArrayList();
 
         for (LinkMovieGenre linkMovieGenre : linkMovieGenreAll) {
@@ -39,7 +39,7 @@ public class MovieEnricher {
     }
 
     private List<Country> getCountryListByMovieId(int id) {
-        List<LinkMovieCountry> linkMovieCountryAll = movieService.getMovieCountryAll();
+        List<LinkMovieCountry> linkMovieCountryAll = movieService.getLinkMovieCountryAll();
         List<Country> countryList = new ArrayList();
 
         for (LinkMovieCountry linkMovieCountry : linkMovieCountryAll) {
