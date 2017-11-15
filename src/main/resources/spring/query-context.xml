@@ -5,8 +5,50 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="getAllMovieSQL" class="java.lang.String">
-        <constructor-arg value="select m.id,  m.name_russian,  m.name_native,  m.released_date,  m.rating,  m.price,  m.picture_path  from movieland.movie m;"/>
+        <constructor-arg value="
+        select
+            m.id,
+            m.name_russian,
+            m.name_native,
+            m.released_date,
+            m.rating,
+            m.price,
+            m.picture_path
+        from movieland.movie m;"/>
     </bean>
 
+    <bean id="getRandomMovieSQL" class="java.lang.String">
+        <constructor-arg value="
+        select
+            m.id,
+            m.name_russian,
+            m.name_native,
+            m.released_date,
+            m.rating,
+            m.price,
+            m.picture_path
+        from movieland.movie m
+        order by rand()
+        limit 3;"/>
+    </bean>
 
+    <bean id="getMovieCountrySQL" class="java.lang.String">
+        <constructor-arg value="
+        select
+            mc.country_id,
+            c.name country_name,
+            mc.movie_id
+        from movieland.movie_country mc
+        join movieland.country c on c.id = mc.country_id;"/>
+    </bean>
+
+    <bean id="getMovieGenreSQL" class="java.lang.String">
+        <constructor-arg value="
+        select
+            mg.movie_id,
+            g.name genre_name,
+            mg.genre_id
+        from movieland.genre g
+        join movieland.movie_genre mg on mg.genre_id = g.id;"/>
+    </bean>
 </beans>

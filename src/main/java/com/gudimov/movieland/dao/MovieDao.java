@@ -5,5 +5,8 @@ import com.gudimov.movieland.entity.Movie;
 import java.util.List;
 
 public interface MovieDao {
-    List<Movie> getAllMoview();
+    List<Movie> getAll();
+
+    List<Movie> getRandom();
+
 }
