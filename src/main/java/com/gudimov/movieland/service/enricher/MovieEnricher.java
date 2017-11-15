@@ -1,5 +1,7 @@
 package com.gudimov.movieland.service.enricher;
 
+import com.gudimov.movieland.dao.link.LinkMovieCountry;
+import com.gudimov.movieland.dao.link.LinkMovieGenre;
 import com.gudimov.movieland.entity.*;
 import com.gudimov.movieland.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ public class MovieEnricher {
     @Autowired
     private MovieService movieService;
 
-    public List<MovieWithGenreCountry> enrichMovieWithGenreCountry(List<MovieWithGenreCountry> listMovie) {
-        for (MovieWithGenreCountry movie : listMovie) {
+    public List<Movie> enrichMovie(List<Movie> listMovie) {
+        for (Movie movie : listMovie) {
             movie.setGenre(getGenreListByMovieId(movie.getId()));
             movie.setCountry(getCountryListByMovieId(movie.getId()));
         }
@@ -22,14 +24,14 @@ public class MovieEnricher {
     }
 
     private List<Genre> getGenreListByMovieId(int id) {
-        List<MovieGenre> movieGenreAll = movieService.getMovieGenreAll();
+        List<LinkMovieGenre> linkMovieGenreAll = movieService.getLinkMovieGenreAll();
         List<Genre> genreList = new ArrayList();
 
-        for (MovieGenre movieGenre : movieGenreAll) {
-            if (movieGenre.getMovieId() == id) {
+        for (LinkMovieGenre linkMovieGenre : linkMovieGenreAll) {
+            if (linkMovieGenre.getMovieId() == id) {
                 Genre genre = new Genre();
-                genre.setId(movieGenre.getGenreId());
-                genre.setName(movieGenre.getGenreName());
+                genre.setId(linkMovieGenre.getGenreId());
+                genre.setName(linkMovieGenre.getGenreName());
                 genreList.add(genre);
             }
         }
@@ -37,14 +39,14 @@ public class MovieEnricher {
     }
 
     private List<Country> getCountryListByMovieId(int id) {
-        List<MovieCountry> movieCountryAll = movieService.getMovieCountryAll();
+        List<LinkMovieCountry> linkMovieCountryAll = movieService.getLinkMovieCountryAll();
         List<Country> countryList = new ArrayList();
 
-        for (MovieCountry movieCountry : movieCountryAll) {
-            if (movieCountry.getMovieId() == id) {
+        for (LinkMovieCountry linkMovieCountry : linkMovieCountryAll) {
+            if (linkMovieCountry.getMovieId() == id) {
                 Country contry = new Country();
-                contry.setId(movieCountry.getCountryId());
-                contry.setName(movieCountry.getCountryName());
+                contry.setId(linkMovieCountry.getCountryId());
+                contry.setName(linkMovieCountry.getCountryName());
                 countryList.add(contry);
             }
         }

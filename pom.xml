@@ -43,7 +43,7 @@
                 <version>2.20.1</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/Jdbc*Test.java</exclude>
+                        <exclude>**/*ITest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>

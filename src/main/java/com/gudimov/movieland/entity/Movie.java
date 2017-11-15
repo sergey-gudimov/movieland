@@ -2,6 +2,7 @@ package com.gudimov.movieland.entity;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class Movie {
@@ -12,6 +13,8 @@ public class Movie {
     private double rating;
     private double price;
     private String picturePath;
+    private List<Genre> genre;
+    private List<Country> country;
 
     public int getId() {
         return id;
@@ -69,6 +72,22 @@ public class Movie {
         this.picturePath = picturePath;
     }
 
+    public List<Genre> getGenre() {
+        return this.genre;
+    }
+
+    public void setGenre(List<Genre> genre) {
+        this.genre = genre;
+    }
+
+    public List<Country> getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(List<Country> country) {
+        this.country = country;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -79,6 +98,8 @@ public class Movie {
                 ", rating=" + rating +
                 ", price=" + price +
                 ", picturePath='" + picturePath + '\'' +
+                ", Genre=" + genre +
+                ", Country=" + country +
                 '}';
     }
 }

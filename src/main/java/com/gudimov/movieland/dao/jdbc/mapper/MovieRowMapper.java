@@ -1,18 +1,17 @@
 package com.gudimov.movieland.dao.jdbc.mapper;
 
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.MovieWithGenreCountry;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public  class  MovieRowMapper <T extends Movie> implements RowMapper<T > {
+public  class  MovieRowMapper<M> implements RowMapper{
     @Override
-    public T mapRow(ResultSet resultSet, int i) throws SQLException {
-        T movie;
-        movie = (T) new MovieWithGenreCountry();
+    public Movie mapRow(ResultSet resultSet, int i) throws SQLException {
+        Movie movie;
+        movie =  new Movie();
         movie.setId(resultSet.getInt("id"));
         movie.setNameRussian(resultSet.getString("name_Russian"));
         movie.setNameNative(resultSet.getString("name_Native"));
