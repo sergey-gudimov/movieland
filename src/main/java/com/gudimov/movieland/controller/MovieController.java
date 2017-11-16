@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,6 +59,21 @@ public class MovieController {
         log.info("Movie {} is received", movieJson);
         return new ResponseEntity<>(movieJson, HttpStatus.OK);
 
+    }
+
+    @RequestMapping(value = "/genre/{genreId}")
+    @ResponseBody
+    public ResponseEntity<String> getMovieByGenreId(@PathVariable int genreId){
+        log.info("Sending request to get movie by genre id = {}", genreId);
+        List<Movie> movies = movieService.getByGenreId( genreId);
+        List<MovieDto> movieDtos = new ArrayList<>();
+        for (Movie movie : movies) {
+            movieDtos.add(new MovieDto(movie));
+        }
+        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        log.info("Movie {} is received", movieJson);
+
+        return new ResponseEntity<>(movieJson, HttpStatus.OK);
     }
 }
 

@@ -24,7 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 public class MovieControllerTest {
+
     private MockMvc mockMvc;
+    private Movie movieFirst = new Movie();
+    private Movie movieSecond = new Movie();
 
     @Mock
     private MovieService movieServiceMock;
@@ -36,12 +39,11 @@ public class MovieControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(movieController).build();
+        setUpServiceMock();
     }
 
 
-    @Test
-    public void getAllMovie() throws Exception {
-        Movie movieFirst = new Movie();
+    private void setUpServiceMock() {
         movieFirst.setId(1);
         movieFirst.setNameNative("Day");
         movieFirst.setNameRussian("День");
@@ -50,7 +52,6 @@ public class MovieControllerTest {
         movieFirst.setRating(4);
         movieFirst.setYearOfRelease(LocalDate.of(2018, 1, 1));
 
-        Movie movieSecond = new Movie();
         movieSecond.setId(2);
         movieSecond.setNameNative("Sea");
         movieSecond.setNameRussian("Море");
@@ -60,6 +61,11 @@ public class MovieControllerTest {
         movieSecond.setYearOfRelease(LocalDate.of(2018, 1, 1));
 
         when(movieServiceMock.getAll()).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getByGenreId(1)).thenReturn(Arrays.asList(movieFirst, movieSecond));
+    }
+
+    @Test
+    public void getAllMovie() throws Exception {
 
         mockMvc.perform(get("/v1/movie")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -177,4 +183,31 @@ public class MovieControllerTest {
         verifyNoMoreInteractions(movieServiceMock);
     }
 
+    @Test
+    public void getMovieByGenreId() throws Exception {
+
+        mockMvc.perform(get("/v1/movie/genre/1")).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(movieFirst.getId())))
+                .andExpect(jsonPath("$[0].nameNative", is(movieFirst.getNameNative())))
+                .andExpect(jsonPath("$[0].nameRussian", is(movieFirst.getNameRussian())))
+                .andExpect(jsonPath("$[0].picturePath", is(movieFirst.getPicturePath())))
+                .andExpect(jsonPath("$[0].price", is(movieFirst.getPrice())))
+                .andExpect(jsonPath("$[0].rating", is(movieFirst.getRating())))
+                .andExpect(jsonPath("$[0].yearOfRelease", is(movieFirst.getYearOfRelease())))
+                .andExpect(jsonPath("$[1].id", is(movieSecond.getId())))
+                .andExpect(jsonPath("$[1].nameNative", is(movieSecond.getNameNative())))
+                .andExpect(jsonPath("$[1].nameRussian", is(movieSecond.getNameRussian())))
+                .andExpect(jsonPath("$[1].picturePath", is(movieSecond.getPicturePath())))
+                .andExpect(jsonPath("$[1].price", is(movieSecond.getPrice())))
+                .andExpect(jsonPath("$[1].rating", is(movieSecond.getRating())))
+                .andExpect(jsonPath("$[1].yearOfRelease", is(movieSecond.getYearOfRelease())))
+        ;
+        //Verify that the getByGenreId() method of the Service interface is called only once.
+        verify(movieServiceMock, times(1)).getByGenreId(1);
+
+        //Ensure that no other methods of our mock object are called during the test.
+        verifyNoMoreInteractions(movieServiceMock);
+    }
 }

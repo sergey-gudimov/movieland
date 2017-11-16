@@ -60,4 +60,18 @@
         from movieland.genre g;"/>
     </bean>
 
+    <bean id="getMovieByGenreIdSQL" class="java.lang.String">
+        <constructor-arg value="
+       select
+            m.id,
+            m.name_russian,
+            m.name_native,
+            m.released_date,
+            m.rating,
+            m.price,
+            m.picture_path
+        from movieland.movie m
+        join movieland.movie_genre mg on mg.movie_id = m.id
+        where mg.genre_id = ? ;"/>
+    </bean>
 </beans>

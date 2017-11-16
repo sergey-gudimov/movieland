@@ -14,4 +14,6 @@ public interface MovieService {
     List<LinkMovieGenre> getLinkMovieGenreAll();
 
     List<LinkMovieCountry> getLinkMovieCountryAll();
+
+    List<Movie> getByGenreId(int genreId);
 }

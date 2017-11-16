@@ -29,4 +29,10 @@ public class JdbcMovieDaoITest {
         assertNotEquals(randomMovie.size(), 0);
     }
 
+    @Test
+    public void getByGenreId() throws Exception {
+        List movieByGenreId = jdbcMovieDao.getByGenreId(1);
+        assertNotEquals(movieByGenreId.size(), 0);
+    }
+
 }
