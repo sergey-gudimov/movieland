@@ -51,4 +51,13 @@
         from movieland.genre g
         join movieland.movie_genre mg on mg.genre_id = g.id;"/>
     </bean>
+
+    <bean id="getAllGenreSQL" class="java.lang.String">
+        <constructor-arg value="
+        select
+            g.id,
+            g.name
+        from movieland.genre g;"/>
+    </bean>
+
 </beans>
