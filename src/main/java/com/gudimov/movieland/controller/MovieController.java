@@ -35,10 +35,7 @@ public class MovieController {
     public ResponseEntity<String> getAllMovie() {
         log.info("Sending request to get all movie");
         List<Movie> movies = movieService.getAll();
-        List<MovieDto> movieDtos = new ArrayList<>();
-        for (Movie movie : movies) {
-            movieDtos.add(new MovieDto(movie));
-        }
+        List<MovieDto> movieDtos =MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
 
@@ -63,13 +60,10 @@ public class MovieController {
 
     @RequestMapping(value = "/genre/{genreId}")
     @ResponseBody
-    public ResponseEntity<String> getMovieByGenreId(@PathVariable int genreId){
+    public ResponseEntity<String> getByGenreId(@PathVariable int genreId) {
         log.info("Sending request to get movie by genre id = {}", genreId);
-        List<Movie> movies = movieService.getByGenreId( genreId);
-        List<MovieDto> movieDtos = new ArrayList<>();
-        for (Movie movie : movies) {
-            movieDtos.add(new MovieDto(movie));
-        }
+        List<Movie> movies = movieService.getByGenreId(genreId);
+        List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
 

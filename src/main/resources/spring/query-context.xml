@@ -74,4 +74,10 @@
         join movieland.movie_genre mg on mg.movie_id = m.id
         where mg.genre_id = ? ;"/>
     </bean>
+
+    <bean id="getGenreMaxIdSQL" class="java.lang.String">
+        <constructor-arg value="
+        select max(id) id
+        from movieland.genre g;"/>
+    </bean>
 </beans>

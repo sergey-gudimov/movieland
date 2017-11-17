@@ -2,6 +2,9 @@ package com.gudimov.movieland.dto;
 
 import com.gudimov.movieland.entity.Movie;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieDto {
     private final int id;
     private final String nameRussian;
@@ -48,4 +51,15 @@ public class MovieDto {
     public String getPicturePath() {
         return picturePath;
     }
+
+    public static List<MovieDto> ConvertEntityListToDtoList(List<Movie> entityList) {
+        List<MovieDto> movieDtos = new ArrayList<>();
+        for (Movie movie : entityList) {
+            movieDtos.add(new MovieDto(movie));
+        }
+        return movieDtos;
+    }
+
+
+
 }

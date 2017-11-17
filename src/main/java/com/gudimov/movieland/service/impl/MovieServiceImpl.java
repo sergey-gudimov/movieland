@@ -42,10 +42,10 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getRandom() {
         List<Movie> movies = movieDao.getRandom();
         LOG.info("Start enriched movie");
-        List<Movie> movieWithGenreCountries = movieEnricher.enrichMovie(movies);
+        movieEnricher.enrichMovie(movies);
         LOG.info("Finish enriched with countries and genres");
 
-        return movieWithGenreCountries;
+        return movies;
     }
 
     @Override
