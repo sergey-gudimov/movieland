@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class MovieServiceImpl implements MovieService {
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MovieDao movieDao;
@@ -41,11 +41,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> getRandom() {
         List<Movie> movies = movieDao.getRandom();
-        log.info("Start enriched movie");
-        List<Movie> movieWithGenreCountries = movieEnricher.enrichMovie(movies);
-        log.info("Finish enriched with countries and genres");
+        LOG.info("Start enriched movie");
+        movieEnricher.enrichMovie(movies);
+        LOG.info("Finish enriched with countries and genres");
 
-        return movieWithGenreCountries;
+        return movies;
     }
 
     @Override
@@ -56,5 +56,13 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<LinkMovieCountry> getLinkMovieCountryAll() {
         return movieCountryDao.getAll();
+    }
+
+    @Override
+    public List<Movie> getByGenreId(int genreId) {
+        LOG.info("Start service get movie by genre id = {}",genreId);
+        List<Movie> movies = movieDao.getByGenreId(genreId);
+        LOG.info("Finish service get movie by genre id = {}. Return movies {} ",genreId, movies);
+        return movies;
     }
 }

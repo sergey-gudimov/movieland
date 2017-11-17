@@ -14,8 +14,8 @@ import java.util.List;
 
 @Repository
 public class JdbcMovieDao implements MovieDao {
-    private static final MovieRowMapper movieRowMapper = new MovieRowMapper();
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final MovieRowMapper MOVIE_ROW_MAPPER = new MovieRowMapper();
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -26,13 +26,16 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     private String getRandomMovieSQL;
 
+    @Autowired
+    private String getMovieByGenreIdSQL;
+
 
     @Override
     public List<Movie> getAll() {
 
-        log.info("Start query to get movie from DB");
-        List<Movie> listMovie = jdbcTemplate.query(getAllMovieSQL, movieRowMapper);
-        log.info("Finish query to get movie from DB");
+        LOG.info("Start query to get movie from DB");
+        List<Movie> listMovie = jdbcTemplate.query(getAllMovieSQL, MOVIE_ROW_MAPPER);
+        LOG.info("Finish query to get movie from DB");
 
         return listMovie;
     }
@@ -40,9 +43,19 @@ public class JdbcMovieDao implements MovieDao {
     @Override
 
     public List<Movie> getRandom() {
-        log.info("Start query to get random movie from DB");
-        List<Movie> listMovie = jdbcTemplate.query(getRandomMovieSQL, movieRowMapper);
-        log.info("Finish query to get movie from DB");
+        LOG.info("Start query to get random movie from DB");
+        List<Movie> listMovie = jdbcTemplate.query(getRandomMovieSQL, MOVIE_ROW_MAPPER);
+        LOG.info("Finish query to get movie from DB");
+
+        return listMovie;
+    }
+
+    @Override
+    public List<Movie> getByGenreId(int genreId) {
+        LOG.info("Start query to get movie by genre id = {} from DB", genreId);
+
+        List<Movie> listMovie = jdbcTemplate.query(getMovieByGenreIdSQL, MOVIE_ROW_MAPPER,genreId);
+        LOG.info("Finish query to get movie by genre id = {} from DB. Return movie = {}",genreId, listMovie);
 
         return listMovie;
     }

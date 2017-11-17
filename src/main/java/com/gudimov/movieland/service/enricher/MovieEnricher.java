@@ -15,12 +15,11 @@ public class MovieEnricher {
     @Autowired
     private MovieService movieService;
 
-    public List<Movie> enrichMovie(List<Movie> listMovie) {
+    public void enrichMovie(List<Movie> listMovie) {
         for (Movie movie : listMovie) {
             movie.setGenre(getGenreListByMovieId(movie.getId()));
             movie.setCountry(getCountryListByMovieId(movie.getId()));
         }
-        return listMovie;
     }
 
     private List<Genre> getGenreListByMovieId(int id) {
