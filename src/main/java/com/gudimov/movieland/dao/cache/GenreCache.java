@@ -21,16 +21,18 @@ public class GenreCache implements GenreDao{
     @Autowired
     JdbcGenreDao jdbcGenreDao;
 
-    private List<Genre> genreCacheList;
+    private volatile List<Genre> genreCacheList;
 
     public List<Genre> getAll() {
         LOG.info("Start genre cache get all");
         ArrayList<Genre> genresCopy = new ArrayList<>();
-        for (Genre genre : genreCacheList) {
-            Genre genreCopy = new Genre();
-            genreCopy.setId(genre.getId());
-            genreCopy.setName(genre.getName());
-            genresCopy.add(genreCopy);
+        synchronized(genreCacheList) {
+            for (Genre genre : genreCacheList) {
+                Genre genreCopy = new Genre();
+                genreCopy.setId(genre.getId());
+                genreCopy.setName(genre.getName());
+                genresCopy.add(genreCopy);
+            }
         }
         LOG.info("Finish genre cache get all");
         return genresCopy;
