@@ -18,6 +18,7 @@ import java.util.Arrays;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,7 +62,7 @@ public class MovieControllerTest {
         movieSecond.setYearOfRelease(LocalDate.of(2018, 1, 1));
 
         when(movieServiceMock.getAll()).thenReturn(Arrays.asList(movieFirst, movieSecond));
-        when(movieServiceMock.getByGenreId(1)).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getByGenreId(eq(1), anyString(), anyString())).thenReturn(Arrays.asList(movieFirst, movieSecond));
     }
 
     @Test
@@ -205,7 +206,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("$[1].yearOfRelease", is(movieSecond.getYearOfRelease())))
         ;
         //Verify that the getByGenreId() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getByGenreId(1);
+        verify(movieServiceMock, times(1)).getByGenreId(eq(1), anyString(), anyString());
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);

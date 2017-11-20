@@ -8,6 +8,7 @@ import com.gudimov.movieland.dao.link.LinkMovieGenre;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
+import com.gudimov.movieland.service.sorter.MovieSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Autowired
     private MovieEnricher movieEnricher;
+
+    @Autowired
+    private MovieSorter movieSorter;
 
     @Override
     public List<Movie> getAll() {
@@ -59,9 +63,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId) {
+    public List<Movie> getByGenreId(int genreId, String ratingSort, String priceSort) {
         LOG.info("Start service get movie by genre id = {}",genreId);
         List<Movie> movies = movieDao.getByGenreId(genreId);
+        movieSorter.sortMovieList(movies,ratingSort, priceSort);
         LOG.info("Finish service get movie by genre id = {}. Return movies {} ",genreId, movies);
         return movies;
     }

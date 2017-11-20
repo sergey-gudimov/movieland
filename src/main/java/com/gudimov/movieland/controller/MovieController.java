@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,7 @@ public class MovieController {
     public ResponseEntity<String> getAllMovie() {
         log.info("Sending request to get all movie");
         List<Movie> movies = movieService.getAll();
-        List<MovieDto> movieDtos =MovieDto.ConvertEntityListToDtoList(movies);
+        List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
 
@@ -60,9 +57,11 @@ public class MovieController {
 
     @RequestMapping(value = "/genre/{genreId}")
     @ResponseBody
-    public ResponseEntity<String> getByGenreId(@PathVariable int genreId) {
+    public ResponseEntity<String> getByGenreId(@PathVariable int genreId,
+                                               @RequestParam(value = "rating", required = false) String ratingSort,
+                                               @RequestParam(value = "price", required = false) String priceSort) {
         log.info("Sending request to get movie by genre id = {}", genreId);
-        List<Movie> movies = movieService.getByGenreId(genreId);
+        List<Movie> movies = movieService.getByGenreId(genreId, ratingSort, priceSort);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
