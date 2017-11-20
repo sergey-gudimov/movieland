@@ -17,11 +17,10 @@ import java.util.List;
 @Primary
 public class GenreCache implements GenreDao {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private volatile List<Genre> genreCacheList;
 
     @Autowired
     GenreDao jdbcGenreDao;
-
-    private volatile List<Genre> genreCacheList;
 
     public List<Genre> getAll() {
         LOG.info("Start genre cache get all");
@@ -39,12 +38,7 @@ public class GenreCache implements GenreDao {
     @PostConstruct()
     public void invalidate() {
         LOG.info("Start genre cache invalidate");
-        List<Genre> genreList = new ArrayList<>();
-        List<Genre> genres = jdbcGenreDao.getAll();
-        for (Genre genre : genres) {
-            genreList.add(genre);
-        }
-        genreCacheList = genreList;
+        genreCacheList = jdbcGenreDao.getAll();
         LOG.info("Finish genre cache invalidate");
     }
 
