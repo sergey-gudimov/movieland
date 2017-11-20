@@ -1,7 +1,6 @@
 package com.gudimov.movieland.dao.cache;
 
 import com.gudimov.movieland.dao.GenreDao;
-import com.gudimov.movieland.dao.jdbc.JdbcGenreDao;
 import com.gudimov.movieland.entity.Genre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository()
 @Primary
@@ -19,7 +19,7 @@ public class GenreCache implements GenreDao {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    JdbcGenreDao jdbcGenreDao;
+    GenreDao jdbcGenreDao;
 
     private volatile List<Genre> genreCacheList;
 
