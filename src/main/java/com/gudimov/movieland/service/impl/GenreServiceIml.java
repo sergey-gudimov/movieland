@@ -20,9 +20,9 @@ public class GenreServiceIml implements GenreService {
 
     @Override
     public List<Genre> getAll() {
-        LOG.info("Start service get all genre");
+        LOG.info("Start service get all genre cache");
         List<Genre> all = genreDao.getAll();
-        LOG.info("Finish service get all genre");
+        LOG.info("Finish service get all genre cache");
         return all;
     }
 }
