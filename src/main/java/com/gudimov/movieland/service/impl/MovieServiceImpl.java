@@ -38,8 +38,12 @@ public class MovieServiceImpl implements MovieService {
     private MovieSorter movieSorter;
 
     @Override
-    public List<Movie> getAll() {
-        return movieDao.getAll();
+    public List<Movie> getAll(String ratingSort, String priceSort) {
+        LOG.info("Start service get all movies");
+        List<Movie> movies = movieDao.getAll();
+        movieSorter.sortMovieList(movies,ratingSort, priceSort);
+        LOG.info("Finish service get all movies");
+        return movies;
     }
 
     @Override

@@ -29,9 +29,11 @@ public class MovieController {
 
     @RequestMapping
     @ResponseBody
-    public ResponseEntity<String> getAllMovie() {
+    public ResponseEntity<String> getAllMovie(
+            @RequestParam(value = "rating", required = false) String ratingSort,
+            @RequestParam(value = "price", required = false) String priceSort) {
         log.info("Sending request to get all movie");
-        List<Movie> movies = movieService.getAll();
+        List<Movie> movies = movieService.getAll(ratingSort, priceSort);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
