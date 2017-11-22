@@ -7,7 +7,7 @@ import com.gudimov.movieland.entity.Movie;
 import java.util.List;
 
 public interface MovieService {
-    List<Movie> getAll();
+    List<Movie> getAll(String ratingSort, String priceSort);
 
     List<Movie> getRandom();
 
