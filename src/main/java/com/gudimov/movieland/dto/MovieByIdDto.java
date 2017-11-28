@@ -16,9 +16,9 @@ public class MovieByIdDto {
     private final double rating;
     private final double price;
     private final String picturePath;
-    private final List<Genre> genreList;
-    private final List<Country> countryList;
-    private final List<Review> reviewList;
+    private final List<Genre> genre;
+    private final List<Country> country;
+    private final List<Review> review;
 
     public MovieByIdDto(Movie movie) {
         this.id = movie.getId();
@@ -29,9 +29,9 @@ public class MovieByIdDto {
         this.rating = movie.getRating();
         this.price = movie.getPrice();
         this.picturePath = movie.getPicturePath();
-        this.countryList = movie.getCountry();
-        this.genreList = movie.getGenre();
-        this.reviewList = movie.getReview();
+        this.country = movie.getCountry();
+        this.genre = movie.getGenre();
+        this.review = movie.getReview();
     }
 
     public int getId() {
@@ -66,16 +66,16 @@ public class MovieByIdDto {
         return picturePath;
     }
 
-    public List<Genre> getGenreList() {
-        return genreList;
+    public List<Genre> getGenre() {
+        return genre;
     }
 
-    public List<Country> getCountryList() {
-        return countryList;
+    public List<Country> getCountry() {
+        return country;
     }
 
-    public List<Review> getReviewList() {
-        return reviewList;
+    public List<Review> getReview() {
+        return review;
     }
 
 }

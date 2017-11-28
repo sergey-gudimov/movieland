@@ -14,8 +14,8 @@ public class MovieRandomDto {
     private final double rating;
     private final double price;
     private final String picturePath;
-    private final List<Genre> genreList;
-    private final List<Country> countryList;
+    private final List<Genre> genre;
+    private final List<Country> country;
 
     public MovieRandomDto(Movie movie) {
         this.id = movie.getId();
@@ -25,8 +25,8 @@ public class MovieRandomDto {
         this.rating = movie.getRating();
         this.price = movie.getPrice();
         this.picturePath = movie.getPicturePath();
-        this.countryList = movie.getCountry();
-        this.genreList = movie.getGenre();
+        this.country = movie.getCountry();
+        this.genre = movie.getGenre();
     }
 
     public int getId() {
@@ -57,11 +57,11 @@ public class MovieRandomDto {
         return picturePath;
     }
 
-    public List<com.gudimov.movieland.entity.Genre> getGenreList() {
-        return genreList;
+    public List<com.gudimov.movieland.entity.Genre> getGenre() {
+        return genre;
     }
 
-    public List<com.gudimov.movieland.entity.Country> getCountryList() {
-        return countryList;
+    public List<com.gudimov.movieland.entity.Country> getCountry() {
+        return country;
     }
 }

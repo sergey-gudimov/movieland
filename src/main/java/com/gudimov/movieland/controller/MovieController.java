@@ -1,5 +1,6 @@
 package com.gudimov.movieland.controller;
 
+import com.gudimov.movieland.dto.MovieByIdDto;
 import com.gudimov.movieland.dto.MovieDto;
 import com.gudimov.movieland.dto.MovieRandomDto;
 import com.gudimov.movieland.entity.Movie;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,8 +89,8 @@ public class MovieController {
     public ResponseEntity<String> getById(@PathVariable int movieId) {
         log.info("Sending request to get movie by id = {}", movieId);
         List<Movie> movies = movieService.getById(movieId);
-        List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
-        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        List<MovieByIdDto> movieByIdDtos = Arrays.asList(new MovieByIdDto(movies.get(0)));
+        String movieJson = jsonJacksonConverter.parseItemToJson(movieByIdDtos);
         log.info("Movie {} is received", movieJson);
 
         return new ResponseEntity<>(movieJson, HttpStatus.OK);
