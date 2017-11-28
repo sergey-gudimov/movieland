@@ -4,6 +4,8 @@ import com.gudimov.movieland.entity.Country;
 import com.gudimov.movieland.entity.Genre;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.MovieService;
+import com.gudimov.movieland.service.sorter.SortOrder;
+import com.gudimov.movieland.service.sorter.ValidatorSortParams;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -14,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -29,6 +32,9 @@ public class MovieControllerTest {
 
     @Mock
     private MovieService movieServiceMock;
+
+    @Mock
+    private ValidatorSortParams validatorSortParams;
 
     @InjectMocks
     private MovieController movieController;
@@ -58,8 +64,8 @@ public class MovieControllerTest {
         movieSecond.setRating(5);
         movieSecond.setYearOfRelease(LocalDate.of(2018, 1, 1));
 
-        when(movieServiceMock.getAll(anyString(), anyString())).thenReturn(Arrays.asList(movieFirst, movieSecond));
-        when(movieServiceMock.getByGenreId(eq(1), anyString(), anyString())).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getAll(Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
     }
 
     @Test
@@ -84,7 +90,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("$[1].yearOfRelease", is(2018)))
         ;
         //Verify that the findAll() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getAll(anyString(), anyString());
+        verify(movieServiceMock, times(1)).getAll(Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)));
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);
@@ -203,7 +209,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("$[1].yearOfRelease", is(movieSecond.getYearOfRelease())))
         ;
         //Verify that the getByGenreId() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getByGenreId(eq(1), anyString(), anyString());
+        verify(movieServiceMock, times(1)).getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)),Optional.ofNullable(any(SortOrder.class)));
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);

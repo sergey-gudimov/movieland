@@ -3,8 +3,8 @@ package com.gudimov.movieland.dto;
 import com.gudimov.movieland.entity.Genre;
 
 public class GenreDto {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public GenreDto(Genre genre) {
         id = genre.getId();

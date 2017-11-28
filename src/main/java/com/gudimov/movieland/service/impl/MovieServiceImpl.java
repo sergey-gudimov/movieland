@@ -9,12 +9,14 @@ import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
 import com.gudimov.movieland.service.sorter.MovieSorter;
+import com.gudimov.movieland.service.sorter.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,7 +40,7 @@ public class MovieServiceImpl implements MovieService {
     private MovieSorter movieSorter;
 
     @Override
-    public List<Movie> getAll(String ratingSort, String priceSort) {
+    public List<Movie> getAll(Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
         LOG.info("Start service get all movies");
         List<Movie> movies = movieDao.getAll();
         movieSorter.sortMovieList(movies, ratingSort, priceSort);
@@ -67,8 +69,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId, String ratingSort, String priceSort) {
-        LOG.info("Start service get movie by genre id = {}", genreId);
+    public List<Movie> getByGenreId(int genreId, Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
+        LOG.info("Start service get movie by genre id = {}",genreId);
         List<Movie> movies = movieDao.getByGenreId(genreId);
         movieSorter.sortMovieList(movies, ratingSort, priceSort);
         LOG.info("Finish service get movie by genre id = {}. Return movies {} ", genreId, movies);
