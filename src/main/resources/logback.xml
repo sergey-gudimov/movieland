@@ -1,6 +1,6 @@
 <configuration>
 
-    <appender name="file"
+    <appender nickName="file"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>./logs/movieland.log</file>
         <rollingPolicy

@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 public class JsonJacksonConverter {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static final ObjectMapper  objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public <T> String parseItemToJson(T item) {
 
         log.info("Start parsing item to json {}", item);
         String itemJson = null;
         try {
-             itemJson = objectMapper.writeValueAsString(item);
+            itemJson = objectMapper.writeValueAsString(item);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

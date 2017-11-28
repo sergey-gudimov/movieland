@@ -1,7 +1,7 @@
 package com.gudimov.movieland.dao.link;
 
 public class LinkMovieGenre {
-    private  int movieId;
+    private int movieId;
     private String genreName;
     private int genreId;
 

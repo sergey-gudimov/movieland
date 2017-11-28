@@ -1,13 +1,13 @@
 package com.gudimov.movieland.dao.jdbc;
 
 import com.gudimov.movieland.dao.GenreDao;
+import com.gudimov.movieland.dao.jdbc.mapper.GenreRowMapper;
 import com.gudimov.movieland.entity.Genre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.gudimov.movieland.dao.jdbc.mapper.GenreRowMapper;
 
 import java.util.List;
 

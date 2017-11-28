@@ -2,12 +2,17 @@ package com.gudimov.movieland.service.enricher;
 
 import com.gudimov.movieland.dao.link.LinkMovieCountry;
 import com.gudimov.movieland.dao.link.LinkMovieGenre;
-import com.gudimov.movieland.entity.*;
+import com.gudimov.movieland.entity.Country;
+import com.gudimov.movieland.entity.Genre;
+import com.gudimov.movieland.entity.Movie;
+import com.gudimov.movieland.entity.Review;
 import com.gudimov.movieland.service.MovieService;
+import com.gudimov.movieland.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MovieEnricher {
@@ -15,10 +20,14 @@ public class MovieEnricher {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     public void enrichMovie(List<Movie> listMovie) {
         for (Movie movie : listMovie) {
             movie.setGenre(getGenreListByMovieId(movie.getId()));
             movie.setCountry(getCountryListByMovieId(movie.getId()));
+            movie.setReview(getReviewListByMovieId(movie.getId()));
         }
     }
 
@@ -50,5 +59,9 @@ public class MovieEnricher {
             }
         }
         return countryList;
+    }
+
+    private List<Review> getReviewListByMovieId(int movieId) {
+        return reviewService.getReviewByMovieId(movieId);
     }
 }

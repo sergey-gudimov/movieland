@@ -43,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getAll(Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
         LOG.info("Start service get all movies");
         List<Movie> movies = movieDao.getAll();
-        movieSorter.sortMovieList(movies,ratingSort, priceSort);
+        movieSorter.sortMovieList(movies, ratingSort, priceSort);
         LOG.info("Finish service get all movies");
         return movies;
     }
@@ -72,8 +72,18 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getByGenreId(int genreId, Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
         LOG.info("Start service get movie by genre id = {}",genreId);
         List<Movie> movies = movieDao.getByGenreId(genreId);
-        movieSorter.sortMovieList(movies,ratingSort, priceSort);
-        LOG.info("Finish service get movie by genre id = {}. Return movies {} ",genreId, movies);
+        movieSorter.sortMovieList(movies, ratingSort, priceSort);
+        LOG.info("Finish service get movie by genre id = {}. Return movies {} ", genreId, movies);
         return movies;
     }
+
+    @Override
+    public List<Movie> getById(int movieId) {
+        LOG.info("Start service get movie by id = {}", movieId);
+        List<Movie> movies = movieDao.getById(movieId);
+        movieEnricher.enrichMovie(movies);
+        LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movies);
+        return movies;
+    }
+
 }

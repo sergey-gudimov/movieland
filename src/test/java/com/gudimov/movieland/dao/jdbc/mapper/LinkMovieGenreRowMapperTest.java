@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.sql.ResultSet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,13 +22,13 @@ public class LinkMovieGenreRowMapperTest {
         MovieGenreRowMapper movieGenreRowMapper = new MovieGenreRowMapper();
 
         LinkMovieGenre actualMovie = movieGenreRowMapper.mapRow(resultSet, 0);
-        assertEquals( 1,actualMovie.getMovieId());
-        assertEquals( 11,actualMovie.getGenreId());
-        assertEquals( "Жах",actualMovie.getGenreName());
+        assertEquals(1, actualMovie.getMovieId());
+        assertEquals(11, actualMovie.getGenreId());
+        assertEquals("Жах", actualMovie.getGenreName());
 
         actualMovie = movieGenreRowMapper.mapRow(resultSet, 1);
-        assertEquals( 2,actualMovie.getMovieId());
-        assertEquals( 22,actualMovie.getGenreId());
-        assertEquals( "Комедия",actualMovie.getGenreName());
+        assertEquals(2, actualMovie.getMovieId());
+        assertEquals(22, actualMovie.getGenreId());
+        assertEquals("Комедия", actualMovie.getGenreName());
     }
 }
