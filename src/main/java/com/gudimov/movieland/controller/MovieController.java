@@ -4,6 +4,8 @@ import com.gudimov.movieland.dto.MovieDto;
 import com.gudimov.movieland.dto.MovieRandomDto;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.MovieService;
+import com.gudimov.movieland.service.sorter.SortOrder;
+import com.gudimov.movieland.service.sorter.ValidatorSortParams;
 import com.gudimov.movieland.util.JsonJacksonConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping(value = "/v1/movie", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 public class MovieController {
@@ -24,6 +25,9 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private ValidatorSortParams validatorSortParams;
 
     static private final JsonJacksonConverter jsonJacksonConverter = new JsonJacksonConverter();
 
@@ -33,7 +37,10 @@ public class MovieController {
             @RequestParam(value = "rating", required = false) String ratingSort,
             @RequestParam(value = "price", required = false) String priceSort) {
         log.info("Sending request to get all movie");
-        List<Movie> movies = movieService.getAll(ratingSort, priceSort);
+        SortOrder sortOrderRating = SortOrder.getSortOrderByDirection(ratingSort);
+        SortOrder sortOrderPrice = SortOrder.getSortOrderByDirection(priceSort);
+        validatorSortParams.validate(sortOrderRating, sortOrderPrice);
+        List<Movie> movies = movieService.getAll(sortOrderRating, sortOrderPrice);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
@@ -63,7 +70,10 @@ public class MovieController {
                                                @RequestParam(value = "rating", required = false) String ratingSort,
                                                @RequestParam(value = "price", required = false) String priceSort) {
         log.info("Sending request to get movie by genre id = {}", genreId);
-        List<Movie> movies = movieService.getByGenreId(genreId, ratingSort, priceSort);
+        SortOrder sortOrderRating = SortOrder.getSortOrderByDirection(ratingSort);
+        SortOrder sortOrderPrice = SortOrder.getSortOrderByDirection(priceSort);
+        validatorSortParams.validate(sortOrderRating, sortOrderPrice);
+        List<Movie> movies = movieService.getByGenreId(genreId, sortOrderRating, sortOrderPrice);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);

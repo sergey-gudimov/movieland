@@ -10,12 +10,15 @@ public enum SortOrder {
         this.direction = direction.toUpperCase();
     }
 
-    public static SortOrder getSortOrderByDirection(String direction){
+    public static SortOrder getSortOrderByDirection(String direction) {
+        if (direction == null) {
+            return null;
+        }
         for (SortOrder sortOrder : SortOrder.values()) {
-            if(sortOrder.direction.equalsIgnoreCase(direction.toUpperCase())){
+            if (sortOrder.direction.equalsIgnoreCase(direction.toUpperCase())) {
                 return sortOrder;
             }
         }
-        throw new IllegalArgumentException("Incorect sort direction "+direction);
+        throw new IllegalArgumentException("Incorect sort direction " + direction);
     }
 }
