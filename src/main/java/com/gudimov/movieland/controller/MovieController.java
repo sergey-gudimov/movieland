@@ -73,7 +73,7 @@ public class MovieController {
 
     @RequestMapping(value = "/{movieId}")
     @ResponseBody
-    public ResponseEntity<String> getById(@PathVariable int movieId){
+    public ResponseEntity<String> getById(@PathVariable int movieId) {
         log.info("Sending request to get movie by id = {}", movieId);
         List<Movie> movies = movieService.getById(movieId);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);

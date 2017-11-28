@@ -5,9 +5,7 @@ import com.gudimov.movieland.dao.MovieDao;
 import com.gudimov.movieland.dao.MovieGenreDao;
 import com.gudimov.movieland.dao.link.LinkMovieCountry;
 import com.gudimov.movieland.dao.link.LinkMovieGenre;
-import com.gudimov.movieland.entity.Country;
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.Review;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
 import com.gudimov.movieland.service.sorter.MovieSorter;
@@ -43,7 +41,7 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getAll(String ratingSort, String priceSort) {
         LOG.info("Start service get all movies");
         List<Movie> movies = movieDao.getAll();
-        movieSorter.sortMovieList(movies,ratingSort, priceSort);
+        movieSorter.sortMovieList(movies, ratingSort, priceSort);
         LOG.info("Finish service get all movies");
         return movies;
     }
@@ -70,16 +68,16 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getByGenreId(int genreId, String ratingSort, String priceSort) {
-        LOG.info("Start service get movie by genre id = {}",genreId);
+        LOG.info("Start service get movie by genre id = {}", genreId);
         List<Movie> movies = movieDao.getByGenreId(genreId);
-        movieSorter.sortMovieList(movies,ratingSort, priceSort);
-        LOG.info("Finish service get movie by genre id = {}. Return movies {} ",genreId, movies);
+        movieSorter.sortMovieList(movies, ratingSort, priceSort);
+        LOG.info("Finish service get movie by genre id = {}. Return movies {} ", genreId, movies);
         return movies;
     }
 
     @Override
     public List<Movie> getById(int movieId) {
-        LOG.info("Start service get movie by id = {}",movieId);
+        LOG.info("Start service get movie by id = {}", movieId);
         List<Movie> movies = movieDao.getById(movieId);
         movieEnricher.enrichMovie(movies);
         LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movies);

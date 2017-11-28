@@ -10,12 +10,14 @@ public class Movie {
     private String nameRussian;
     private String nameNative;
     private int yearOfRelease;
+    private String description;
     private double rating;
     private double price;
     private String picturePath;
     private List<Genre> genre;
     private List<Country> country;
     private List<Review> review;
+
 
     public int getId() {
         return id;
@@ -89,6 +91,22 @@ public class Movie {
         this.country = country;
     }
 
+    public void setReview(List<Review> review) {
+        this.review = review;
+    }
+
+    public List<Review> getReview() {
+        return review;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -96,15 +114,13 @@ public class Movie {
                 ", nameRussian='" + nameRussian + '\'' +
                 ", nameNative='" + nameNative + '\'' +
                 ", yearOfRelease=" + yearOfRelease +
+                ", description='" + description + '\'' +
                 ", rating=" + rating +
                 ", price=" + price +
                 ", picturePath='" + picturePath + '\'' +
-                ", Genre=" + genre +
-                ", Country=" + country +
+                ", genre=" + genre +
+                ", country=" + country +
+                ", review=" + review +
                 '}';
-    }
-
-    public void setReview(List<Review> review) {
-        this.review = review;
     }
 }

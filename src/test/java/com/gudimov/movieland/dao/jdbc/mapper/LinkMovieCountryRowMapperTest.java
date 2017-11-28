@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.sql.ResultSet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,14 +22,14 @@ public class LinkMovieCountryRowMapperTest {
         MovieCountryRowMapper movieCountryRowMapper = new MovieCountryRowMapper();
 
         LinkMovieCountry actualMovie = movieCountryRowMapper.mapRow(resultSet, 0);
-        assertEquals( 1,actualMovie.getMovieId());
-        assertEquals( 11,actualMovie.getCountryId());
-        assertEquals( "UA",actualMovie.getCountryName());
+        assertEquals(1, actualMovie.getMovieId());
+        assertEquals(11, actualMovie.getCountryId());
+        assertEquals("UA", actualMovie.getCountryName());
 
         actualMovie = movieCountryRowMapper.mapRow(resultSet, 1);
-        assertEquals( 2,actualMovie.getMovieId());
-        assertEquals( 22,actualMovie.getCountryId());
-        assertEquals( "UK",actualMovie.getCountryName());
+        assertEquals(2, actualMovie.getMovieId());
+        assertEquals(22, actualMovie.getCountryId());
+        assertEquals("UK", actualMovie.getCountryName());
     }
 
 }

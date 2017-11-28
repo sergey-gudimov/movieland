@@ -56,8 +56,8 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getByGenreId(int genreId) {
         LOG.info("Start query to get movie by genre id = {} from DB", genreId);
 
-        List<Movie> listMovie = jdbcTemplate.query(getMovieByGenreIdSQL, MOVIE_ROW_MAPPER,genreId);
-        LOG.info("Finish query to get movie by genre id = {} from DB. Return movie = {}",genreId, listMovie);
+        List<Movie> listMovie = jdbcTemplate.query(getMovieByGenreIdSQL, MOVIE_ROW_MAPPER, genreId);
+        LOG.info("Finish query to get movie by genre id = {} from DB. Return movie = {}", genreId, listMovie);
 
         return listMovie;
     }
@@ -66,8 +66,8 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getById(int movieId) {
         LOG.info("Start query to get movie by  id = {} from DB", movieId);
 
-        List<Movie> listMovie = jdbcTemplate.query(getMovieByIdSQL, MOVIE_ROW_MAPPER,movieId);
-        LOG.info("Finish query to get movie by id = {} from DB. Return movie = {}",movieId, listMovie);
+        List<Movie> listMovie = jdbcTemplate.query(getMovieByIdSQL, MOVIE_ROW_MAPPER, movieId);
+        LOG.info("Finish query to get movie by id = {} from DB. Return movie = {}", movieId, listMovie);
 
         return listMovie;
     }

@@ -24,6 +24,6 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public List<User> getById(int userId) {
-        return jdbcTemplate.query(getUserByIdSQL,USER_ROW_MAPPER,userId);
+        return jdbcTemplate.query(getUserByIdSQL, USER_ROW_MAPPER, userId);
     }
 }

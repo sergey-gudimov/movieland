@@ -5,5 +5,5 @@ import com.gudimov.movieland.entity.Review;
 import java.util.List;
 
 public interface ReviewDao {
-    public List<Review> getReviewBuMoviewId(int movieId) ;
+    public List<Review> getReviewBuMoviewId(int movieId);
 }
