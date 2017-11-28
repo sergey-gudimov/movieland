@@ -20,7 +20,7 @@ public class GenreCache implements GenreDao {
     private volatile List<Genre> genreCacheList;
 
     @Autowired
-    GenreDao jdbcGenreDao;
+    private GenreDao jdbcGenreDao;
 
     public List<Genre> getAll() {
         LOG.info("Start genre cache get all");

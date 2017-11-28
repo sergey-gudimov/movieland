@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/v1/movie", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
@@ -37,8 +38,8 @@ public class MovieController {
             @RequestParam(value = "rating", required = false) String ratingSort,
             @RequestParam(value = "price", required = false) String priceSort) {
         log.info("Sending request to get all movie");
-        SortOrder sortOrderRating = SortOrder.getSortOrderByDirection(ratingSort);
-        SortOrder sortOrderPrice = SortOrder.getSortOrderByDirection(priceSort);
+        Optional<SortOrder> sortOrderRating = Optional.ofNullable(SortOrder.getSortOrderByDirection(ratingSort));
+        Optional<SortOrder> sortOrderPrice = Optional.ofNullable(SortOrder.getSortOrderByDirection(priceSort));
         validatorSortParams.validate(sortOrderRating, sortOrderPrice);
         List<Movie> movies = movieService.getAll(sortOrderRating, sortOrderPrice);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
@@ -70,8 +71,8 @@ public class MovieController {
                                                @RequestParam(value = "rating", required = false) String ratingSort,
                                                @RequestParam(value = "price", required = false) String priceSort) {
         log.info("Sending request to get movie by genre id = {}", genreId);
-        SortOrder sortOrderRating = SortOrder.getSortOrderByDirection(ratingSort);
-        SortOrder sortOrderPrice = SortOrder.getSortOrderByDirection(priceSort);
+        Optional<SortOrder> sortOrderRating = Optional.ofNullable(SortOrder.getSortOrderByDirection(ratingSort));
+        Optional<SortOrder> sortOrderPrice = Optional.ofNullable(SortOrder.getSortOrderByDirection(priceSort));
         validatorSortParams.validate(sortOrderRating, sortOrderPrice);
         List<Movie> movies = movieService.getByGenreId(genreId, sortOrderRating, sortOrderPrice);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);

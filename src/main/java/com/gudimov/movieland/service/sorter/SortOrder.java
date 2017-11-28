@@ -3,7 +3,7 @@ package com.gudimov.movieland.service.sorter;
 public enum SortOrder {
     ACS("ACS"), DESC("DESC");
 
-    private String direction;
+    private final String direction;
 
 
     SortOrder(String direction) {

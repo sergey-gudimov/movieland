@@ -6,9 +6,10 @@ import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.sorter.SortOrder;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MovieService {
-    List<Movie> getAll(SortOrder ratingSort, SortOrder priceSort);
+    List<Movie> getAll(Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort);
 
     List<Movie> getRandom();
 
@@ -16,5 +17,5 @@ public interface MovieService {
 
     List<LinkMovieCountry> getLinkMovieCountryAll();
 
-    List<Movie> getByGenreId(int genreId, SortOrder ratingSort, SortOrder priceSort);
+    List<Movie> getByGenreId(int genreId, Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort);
 }
