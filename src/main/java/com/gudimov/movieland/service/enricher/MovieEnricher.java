@@ -19,6 +19,7 @@ public class MovieEnricher {
         for (Movie movie : listMovie) {
             movie.setGenre(getGenreListByMovieId(movie.getId()));
             movie.setCountry(getCountryListByMovieId(movie.getId()));
+            movie.setReview(getReviewListByMovieId(movie.getId()));
         }
     }
 
@@ -50,5 +51,9 @@ public class MovieEnricher {
             }
         }
         return countryList;
+    }
+
+    private List<Review> getReviewListByMovieId(int movieId) {
+        return  movieService.getMovieReviewById(movieId);
     }
 }

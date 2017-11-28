@@ -29,6 +29,8 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     private String getMovieByGenreIdSQL;
 
+    @Autowired
+    private String getMovieByIdSQL;
 
     @Override
     public List<Movie> getAll() {
@@ -56,6 +58,16 @@ public class JdbcMovieDao implements MovieDao {
 
         List<Movie> listMovie = jdbcTemplate.query(getMovieByGenreIdSQL, MOVIE_ROW_MAPPER,genreId);
         LOG.info("Finish query to get movie by genre id = {} from DB. Return movie = {}",genreId, listMovie);
+
+        return listMovie;
+    }
+
+    @Override
+    public List<Movie> getById(int movieId) {
+        LOG.info("Start query to get movie by  id = {} from DB", movieId);
+
+        List<Movie> listMovie = jdbcTemplate.query(getMovieByIdSQL, MOVIE_ROW_MAPPER,movieId);
+        LOG.info("Finish query to get movie by id = {} from DB. Return movie = {}",movieId, listMovie);
 
         return listMovie;
     }

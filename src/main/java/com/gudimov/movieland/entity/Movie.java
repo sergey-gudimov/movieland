@@ -15,6 +15,7 @@ public class Movie {
     private String picturePath;
     private List<Genre> genre;
     private List<Country> country;
+    private List<Review> review;
 
     public int getId() {
         return id;
@@ -101,5 +102,9 @@ public class Movie {
                 ", Genre=" + genre +
                 ", Country=" + country +
                 '}';
+    }
+
+    public void setReview(List<Review> review) {
+        this.review = review;
     }
 }

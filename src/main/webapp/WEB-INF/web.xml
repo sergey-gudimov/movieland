@@ -2,16 +2,16 @@
 
 <web-app>
 
-    <display-name>movieland</display-name>
+    <display-nickName>movieland</display-nickName>
 
     <servlet>
-        <servlet-name>movieland</servlet-name>
+        <servlet-nickName>movieland</servlet-nickName>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>movieland</servlet-name>
+        <servlet-nickName>movieland</servlet-nickName>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
@@ -20,7 +20,7 @@
     </listener>
 
     <context-param>
-        <param-name>contextConfigLocation</param-name>
+        <param-nickName>contextConfigLocation</param-nickName>
         <param-value>classpath:/spring/root-context.xml</param-value>
     </context-param>
 </web-app>
