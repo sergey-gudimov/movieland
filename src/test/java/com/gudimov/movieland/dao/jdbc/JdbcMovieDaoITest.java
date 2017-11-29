@@ -24,6 +24,12 @@ public class JdbcMovieDaoITest {
     @Autowired
     private String getGenreMaxIdSQL;
 
+    @Autowired
+    private String getMovieMaxIdSQL;
+
+    @Autowired
+    private String getMovieByIdSQL;
+
     @Test
     public void getAll() throws Exception {
         List allMovie = jdbcMovieDao.getAll();
@@ -43,4 +49,10 @@ public class JdbcMovieDaoITest {
         assertNotEquals(movieByGenreId.size(), 0);
     }
 
+    @Test
+    public void getById() throws Exception {
+        int movieId = jdbcTemplate.queryForObject(getMovieMaxIdSQL, Integer.class);
+        List movieById = jdbcMovieDao.getById(movieId);
+        assertNotEquals(movieById.size(), 0);
+    }
 }
