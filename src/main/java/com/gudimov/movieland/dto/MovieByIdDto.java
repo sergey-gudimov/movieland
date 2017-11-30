@@ -3,8 +3,8 @@ package com.gudimov.movieland.dto;
 import com.gudimov.movieland.entity.Country;
 import com.gudimov.movieland.entity.Genre;
 import com.gudimov.movieland.entity.Movie;
-import com.gudimov.movieland.entity.Review;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieByIdDto {
@@ -18,7 +18,7 @@ public class MovieByIdDto {
     private final String picturePath;
     private final List<Genre> genre;
     private final List<Country> country;
-    private final List<Review> review;
+    private final List<ReviewDto> review;
 
     public MovieByIdDto(Movie movie) {
         this.id = movie.getId();
@@ -31,7 +31,7 @@ public class MovieByIdDto {
         this.picturePath = movie.getPicturePath();
         this.country = movie.getCountry();
         this.genre = movie.getGenre();
-        this.review = movie.getReview();
+        this.review = ReviewDto.ConvertEntyToDtoList(movie.getReview());
     }
 
     public int getId() {
@@ -74,8 +74,15 @@ public class MovieByIdDto {
         return country;
     }
 
-    public List<Review> getReview() {
+    public List<ReviewDto> getReview() {
         return review;
     }
 
+    public static List<MovieByIdDto> ConvertEntityListToDtoList(List<Movie> movies) {
+        List<MovieByIdDto> movieDtoList = new ArrayList<>();
+        for (Movie movie : movies) {
+            movieDtoList.add(new MovieByIdDto(movie));
+        }
+        return movieDtoList;
+    }
 }

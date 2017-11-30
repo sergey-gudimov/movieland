@@ -70,7 +70,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getByGenreId(int genreId, Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
-        LOG.info("Start service get movie by genre id = {}",genreId);
+        LOG.info("Start service get movie by genre id = {}", genreId);
         List<Movie> movies = movieDao.getByGenreId(genreId);
         movieSorter.sortMovieList(movies, ratingSort, priceSort);
         LOG.info("Finish service get movie by genre id = {}. Return movies {} ", genreId, movies);

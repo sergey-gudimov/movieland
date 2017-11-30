@@ -209,7 +209,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("$[1].yearOfRelease", is(movieSecond.getYearOfRelease())))
         ;
         //Verify that the getByGenreId() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)),Optional.ofNullable(any(SortOrder.class)));
+        verify(movieServiceMock, times(1)).getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)));
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);

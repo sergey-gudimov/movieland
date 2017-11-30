@@ -20,6 +20,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUserById(int userId) {
-        return null;
+        return userDao.getById(userId);
     }
 }

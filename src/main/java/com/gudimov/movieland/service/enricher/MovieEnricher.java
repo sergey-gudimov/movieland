@@ -8,6 +8,7 @@ import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.entity.Review;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.ReviewService;
+import com.gudimov.movieland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class MovieEnricher {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private UserService userService;
 
     public void enrichMovie(List<Movie> listMovie) {
         for (Movie movie : listMovie) {
@@ -62,6 +66,10 @@ public class MovieEnricher {
     }
 
     private List<Review> getReviewListByMovieId(int movieId) {
-        return reviewService.getReviewByMovieId(movieId);
+        List<Review> reviewByMovieId = reviewService.getReviewByMovieId(movieId);
+        for (Review review : reviewByMovieId) {
+            review.setUser(userService.getUserById(review.getUserId()));
+        }
+        return reviewByMovieId;
     }
 }

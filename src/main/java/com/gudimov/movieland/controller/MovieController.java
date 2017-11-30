@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,7 +88,7 @@ public class MovieController {
     public ResponseEntity<String> getById(@PathVariable int movieId) {
         log.info("Sending request to get movie by id = {}", movieId);
         List<Movie> movies = movieService.getById(movieId);
-        List<MovieByIdDto> movieByIdDtos = Arrays.asList(new MovieByIdDto(movies.get(0)));
+        List<MovieByIdDto> movieByIdDtos = MovieByIdDto.ConvertEntityListToDtoList(movies);
         String movieJson = jsonJacksonConverter.parseItemToJson(movieByIdDtos);
         log.info("Movie {} is received", movieJson);
 

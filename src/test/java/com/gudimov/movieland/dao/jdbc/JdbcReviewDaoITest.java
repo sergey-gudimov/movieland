@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/spring/root-context.xml"})
@@ -26,6 +26,7 @@ public class JdbcReviewDaoITest {
 
     @Autowired
     private String getReviewByMovieIdSQL;
+
     @Test
     public void getReviewByMovieId() throws Exception {
         int movieId = jdbcTemplate.queryForObject(getMovieMaxIdSQL, Integer.class);
