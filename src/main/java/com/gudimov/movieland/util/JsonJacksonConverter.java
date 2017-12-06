@@ -20,7 +20,6 @@ public class JsonJacksonConverter {
         try {
             itemJson = objectMapper.writeValueAsString(item);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             LOG.error("Error convert to json ", e);
         }
         LOG.info("Item {} is received.", item);
