@@ -56,7 +56,7 @@ public class ReviewDto {
         }
     }
 
-    public static List<ReviewDto> ConvertEntyToDtoList(List<Review> reviewList) {
+    public static List<ReviewDto> convertEntityToDtoList(List<Review> reviewList) {
         List<ReviewDto> reviewDtoList = new ArrayList<>();
         for (Review review : reviewList) {
             reviewDtoList.add(new ReviewDto(review));

@@ -6,7 +6,8 @@ import com.gudimov.movieland.entity.Country;
 import com.gudimov.movieland.entity.Genre;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.entity.Review;
-import com.gudimov.movieland.service.MovieService;
+import com.gudimov.movieland.service.CountryService;
+import com.gudimov.movieland.service.GenreService;
 import com.gudimov.movieland.service.ReviewService;
 import com.gudimov.movieland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ import java.util.List;
 public class MovieEnricher {
 
     @Autowired
-    private MovieService movieService;
+    private CountryService countryService;
+
+    @Autowired
+    private GenreService genreService;
 
     @Autowired
     private ReviewService reviewService;
@@ -40,8 +44,8 @@ public class MovieEnricher {
     }
 
     private List<Genre> getGenreListByMovieId(int id) {
-        List<LinkMovieGenre> linkMovieGenreAll = movieService.getLinkMovieGenreAll();
-        List<Genre> genreList = new ArrayList();
+        List<LinkMovieGenre> linkMovieGenreAll = genreService.getLinkMovieGenreAll();
+        List<Genre> genreList = new ArrayList<>();
 
         for (LinkMovieGenre linkMovieGenre : linkMovieGenreAll) {
             if (linkMovieGenre.getMovieId() == id) {
@@ -55,8 +59,8 @@ public class MovieEnricher {
     }
 
     private List<Country> getCountryListByMovieId(int id) {
-        List<LinkMovieCountry> linkMovieCountryAll = movieService.getLinkMovieCountryAll();
-        List<Country> countryList = new ArrayList();
+        List<LinkMovieCountry> linkMovieCountryAll = countryService.getLinkMovieCountryAll();
+        List<Country> countryList = new ArrayList<>();
 
         for (LinkMovieCountry linkMovieCountry : linkMovieCountryAll) {
             if (linkMovieCountry.getMovieId() == id) {

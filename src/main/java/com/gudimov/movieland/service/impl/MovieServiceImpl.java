@@ -1,10 +1,6 @@
 package com.gudimov.movieland.service.impl;
 
-import com.gudimov.movieland.dao.MovieCountryDao;
 import com.gudimov.movieland.dao.MovieDao;
-import com.gudimov.movieland.dao.MovieGenreDao;
-import com.gudimov.movieland.dao.link.LinkMovieCountry;
-import com.gudimov.movieland.dao.link.LinkMovieGenre;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
@@ -27,11 +23,6 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieDao movieDao;
 
-    @Autowired
-    private MovieGenreDao movieGenreDao;
-
-    @Autowired
-    private MovieCountryDao movieCountryDao;
 
     @Autowired
     private MovieEnricher movieEnricher;
@@ -56,16 +47,6 @@ public class MovieServiceImpl implements MovieService {
         LOG.info("Finish enriched with countries and genres");
 
         return movies;
-    }
-
-    @Override
-    public List<LinkMovieGenre> getLinkMovieGenreAll() {
-        return movieGenreDao.getAll();
-    }
-
-    @Override
-    public List<LinkMovieCountry> getLinkMovieCountryAll() {
-        return movieCountryDao.getAll();
     }
 
     @Override
