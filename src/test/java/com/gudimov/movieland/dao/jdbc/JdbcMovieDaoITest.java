@@ -1,5 +1,6 @@
 package com.gudimov.movieland.dao.jdbc;
 
+import com.gudimov.movieland.entity.Movie;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/spring/root-context.xml"})
+@ContextConfiguration(locations = {"classpath:test-root-context.xml"})
 public class JdbcMovieDaoITest {
 
     @Autowired
@@ -52,7 +54,7 @@ public class JdbcMovieDaoITest {
     @Test
     public void getById() throws Exception {
         int movieId = jdbcTemplate.queryForObject(getMovieMaxIdSQL, Integer.class);
-        List movieById = jdbcMovieDao.getById(movieId);
-        assertNotEquals(movieById.size(), 0);
+        Movie movie = jdbcMovieDao.getById(movieId);
+        assertNotNull(movie);
     }
 }

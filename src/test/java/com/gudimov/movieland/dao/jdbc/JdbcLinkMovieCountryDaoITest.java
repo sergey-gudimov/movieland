@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertNotEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/spring/root-context.xml"})
+@ContextConfiguration(locations = {"classpath:test-root-context.xml"})
 public class JdbcLinkMovieCountryDaoITest {
 
     @Autowired

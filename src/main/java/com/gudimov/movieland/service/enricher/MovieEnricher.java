@@ -27,12 +27,16 @@ public class MovieEnricher {
     @Autowired
     private UserService userService;
 
-    public void enrichMovie(List<Movie> listMovie) {
+    public void enrichMovieList(List<Movie> listMovie) {
         for (Movie movie : listMovie) {
-            movie.setGenre(getGenreListByMovieId(movie.getId()));
-            movie.setCountry(getCountryListByMovieId(movie.getId()));
-            movie.setReview(getReviewListByMovieId(movie.getId()));
+            enrichMovie(movie);
         }
+    }
+
+    public void enrichMovie(Movie movie) {
+        movie.setGenre(getGenreListByMovieId(movie.getId()));
+        movie.setCountry(getCountryListByMovieId(movie.getId()));
+        movie.setReview(getReviewListByMovieId(movie.getId()));
     }
 
     private List<Genre> getGenreListByMovieId(int id) {

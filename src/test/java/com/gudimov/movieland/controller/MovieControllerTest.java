@@ -110,7 +110,7 @@ public class MovieControllerTest {
 
         when(movieServiceMock.getAll(Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
         when(movieServiceMock.getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
-        when(movieServiceMock.getById(eq(1))).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getById(eq(1))).thenReturn(movieFirst);
     }
 
 
@@ -265,45 +265,25 @@ public class MovieControllerTest {
     public void getById() throws Exception {
         mockMvc.perform(get("/v1/movie/1")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(movieFirst.getId())))
-                .andExpect(jsonPath("$[0].nameNative", is(movieFirst.getNameNative())))
-                .andExpect(jsonPath("$[0].nameRussian", is(movieFirst.getNameRussian())))
-                .andExpect(jsonPath("$[0].picturePath", is(movieFirst.getPicturePath())))
-                .andExpect(jsonPath("$[0].price", is(movieFirst.getPrice())))
-                .andExpect(jsonPath("$[0].rating", is(movieFirst.getRating())))
-                .andExpect(jsonPath("$[0].yearOfRelease", is(movieFirst.getYearOfRelease())))
-                .andExpect(jsonPath("$[0].country[0].id", is(movieFirst.getCountry().get(0).getId())))
-                .andExpect(jsonPath("$[0].country[0].name", is(movieFirst.getCountry().get(0).getName())))
-                .andExpect(jsonPath("$[0].country[1].id", is(movieFirst.getCountry().get(1).getId())))
-                .andExpect(jsonPath("$[0].country[1].name", is(movieFirst.getCountry().get(1).getName())))
-                .andExpect(jsonPath("$[0].genre[0].id", is(movieFirst.getGenre().get(0).getId())))
-                .andExpect(jsonPath("$[0].genre[0].name", is(movieFirst.getGenre().get(0).getName())))
-                .andExpect(jsonPath("$[0].genre[1].id", is(movieFirst.getGenre().get(1).getId())))
-                .andExpect(jsonPath("$[0].genre[1].name", is(movieFirst.getGenre().get(1).getName())))
-                .andExpect(jsonPath("$[0].review[0].id", is(movieFirst.getReview().get(0).getId())))
-                .andExpect(jsonPath("$[0].review[0].text", is(movieFirst.getReview().get(0).getText())))
-                .andExpect(jsonPath("$[0].review[0].user.id", is(movieFirst.getReview().get(0).getUser().getId())))
-                .andExpect(jsonPath("$[0].review[0].user.nickName", is(movieFirst.getReview().get(0).getUser().getNickName())))
-                .andExpect(jsonPath("$[1].id", is(movieSecond.getId())))
-                .andExpect(jsonPath("$[1].nameNative", is(movieSecond.getNameNative())))
-                .andExpect(jsonPath("$[1].nameRussian", is(movieSecond.getNameRussian())))
-                .andExpect(jsonPath("$[1].picturePath", is(movieSecond.getPicturePath())))
-                .andExpect(jsonPath("$[1].price", is(movieSecond.getPrice())))
-                .andExpect(jsonPath("$[1].rating", is(movieSecond.getRating())))
-                .andExpect(jsonPath("$[1].yearOfRelease", is(movieSecond.getYearOfRelease())))
-                .andExpect(jsonPath("$[1].country[0].id", is(movieSecond.getCountry().get(0).getId())))
-                .andExpect(jsonPath("$[1].country[0].name", is(movieSecond.getCountry().get(0).getName())))
-                .andExpect(jsonPath("$[1].country[1].id", is(movieSecond.getCountry().get(1).getId())))
-                .andExpect(jsonPath("$[1].country[1].name", is(movieSecond.getCountry().get(1).getName())))
-                .andExpect(jsonPath("$[1].genre[0].id", is(movieSecond.getGenre().get(0).getId())))
-                .andExpect(jsonPath("$[1].genre[0].name", is(movieSecond.getGenre().get(0).getName())))
-                .andExpect(jsonPath("$[1].genre[1].id", is(movieSecond.getGenre().get(1).getId())))
-                .andExpect(jsonPath("$[1].genre[1].name", is(movieSecond.getGenre().get(1).getName())))
-                .andExpect(jsonPath("$[1].review[0].id", is(movieSecond.getReview().get(0).getId())))
-                .andExpect(jsonPath("$[1].review[0].text", is(movieSecond.getReview().get(0).getText())))
-                .andExpect(jsonPath("$[1].review[0].user.id", is(movieSecond.getReview().get(0).getUser().getId())))
-                .andExpect(jsonPath("$[1].review[0].user.nickName", is(movieSecond.getReview().get(0).getUser().getNickName())))
+                .andExpect(jsonPath("id", is(movieFirst.getId())))
+                .andExpect(jsonPath("nameNative", is(movieFirst.getNameNative())))
+                .andExpect(jsonPath("nameRussian", is(movieFirst.getNameRussian())))
+                .andExpect(jsonPath("picturePath", is(movieFirst.getPicturePath())))
+                .andExpect(jsonPath("price", is(movieFirst.getPrice())))
+                .andExpect(jsonPath("rating", is(movieFirst.getRating())))
+                .andExpect(jsonPath("yearOfRelease", is(movieFirst.getYearOfRelease())))
+                .andExpect(jsonPath("country[0].id", is(movieFirst.getCountry().get(0).getId())))
+                .andExpect(jsonPath("country[0].name", is(movieFirst.getCountry().get(0).getName())))
+                .andExpect(jsonPath("country[1].id", is(movieFirst.getCountry().get(1).getId())))
+                .andExpect(jsonPath("country[1].name", is(movieFirst.getCountry().get(1).getName())))
+                .andExpect(jsonPath("genre[0].id", is(movieFirst.getGenre().get(0).getId())))
+                .andExpect(jsonPath("genre[0].name", is(movieFirst.getGenre().get(0).getName())))
+                .andExpect(jsonPath("genre[1].id", is(movieFirst.getGenre().get(1).getId())))
+                .andExpect(jsonPath("genre[1].name", is(movieFirst.getGenre().get(1).getName())))
+                .andExpect(jsonPath("review[0].id", is(movieFirst.getReview().get(0).getId())))
+                .andExpect(jsonPath("review[0].text", is(movieFirst.getReview().get(0).getText())))
+                .andExpect(jsonPath("review[0].user.id", is(movieFirst.getReview().get(0).getUser().getId())))
+                .andExpect(jsonPath("review[0].user.nickName", is(movieFirst.getReview().get(0).getUser().getNickName())))
         ;
         //Verify that the getByGenreId() method of the Service interface is called only once.
         verify(movieServiceMock, times(1)).getById(eq(1));

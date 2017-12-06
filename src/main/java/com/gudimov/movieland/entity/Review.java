@@ -1,7 +1,5 @@
 package com.gudimov.movieland.entity;
 
-import java.util.List;
-
 public class Review {
     private int id;
     private int movieId;
@@ -60,9 +58,4 @@ public class Review {
                 '}';
     }
 
-    public void setUser(List<User> userList) {
-        if (userList.size() > 0) {
-            user = userList.get(0);
-        }
-    }
 }

@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public class JdbcUserDaoImpl implements UserDao {
+public class JdbcUserDao implements UserDao {
     private final static UserRowMapper USER_ROW_MAPPER = new UserRowMapper();
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
@@ -23,7 +21,7 @@ public class JdbcUserDaoImpl implements UserDao {
     private String getUserByIdSQL;
 
     @Override
-    public List<User> getById(int userId) {
-        return jdbcTemplate.query(getUserByIdSQL, USER_ROW_MAPPER, userId);
+    public User getById(int userId) {
+        return jdbcTemplate.queryForObject(getUserByIdSQL, USER_ROW_MAPPER, userId);
     }
 }

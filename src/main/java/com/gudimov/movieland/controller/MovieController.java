@@ -87,9 +87,9 @@ public class MovieController {
     @ResponseBody
     public ResponseEntity<String> getById(@PathVariable int movieId) {
         log.info("Sending request to get movie by id = {}", movieId);
-        List<Movie> movies = movieService.getById(movieId);
-        List<MovieByIdDto> movieByIdDtos = MovieByIdDto.ConvertEntityListToDtoList(movies);
-        String movieJson = jsonJacksonConverter.parseItemToJson(movieByIdDtos);
+        Movie movie = movieService.getById(movieId);
+        MovieByIdDto movieByIdDto = new MovieByIdDto(movie);
+        String movieJson = jsonJacksonConverter.parseItemToJson(movieByIdDto);
         log.info("Movie {} is received", movieJson);
 
         return new ResponseEntity<>(movieJson, HttpStatus.OK);

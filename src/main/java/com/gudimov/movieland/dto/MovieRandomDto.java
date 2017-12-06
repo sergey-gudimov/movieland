@@ -57,11 +57,11 @@ public class MovieRandomDto {
         return picturePath;
     }
 
-    public List<com.gudimov.movieland.entity.Genre> getGenre() {
+    public List<Genre> getGenre() {
         return genre;
     }
 
-    public List<com.gudimov.movieland.entity.Country> getCountry() {
+    public List<Country> getCountry() {
         return country;
     }
 }

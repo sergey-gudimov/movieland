@@ -52,7 +52,7 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getRandom() {
         List<Movie> movies = movieDao.getRandom();
         LOG.info("Start enriched movie");
-        movieEnricher.enrichMovie(movies);
+        movieEnricher.enrichMovieList(movies);
         LOG.info("Finish enriched with countries and genres");
 
         return movies;
@@ -78,12 +78,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> getById(int movieId) {
+    public Movie getById(int movieId) {
         LOG.info("Start service get movie by id = {}", movieId);
-        List<Movie> movies = movieDao.getById(movieId);
-        movieEnricher.enrichMovie(movies);
-        LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movies);
-        return movies;
+        Movie movie = movieDao.getById(movieId);
+        movieEnricher.enrichMovie(movie);
+        LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movie);
+        return movie;
     }
 
 }

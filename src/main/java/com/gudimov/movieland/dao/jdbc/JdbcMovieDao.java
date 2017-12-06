@@ -63,10 +63,10 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
-    public List<Movie> getById(int movieId) {
+    public Movie getById(int movieId) {
         LOG.info("Start query to get movie by  id = {} from DB", movieId);
 
-        List<Movie> listMovie = jdbcTemplate.query(getMovieByIdSQL, MOVIE_ROW_MAPPER, movieId);
+        Movie listMovie = jdbcTemplate.queryForObject(getMovieByIdSQL, MOVIE_ROW_MAPPER, movieId);
         LOG.info("Finish query to get movie by id = {} from DB. Return movie = {}", movieId, listMovie);
 
         return listMovie;

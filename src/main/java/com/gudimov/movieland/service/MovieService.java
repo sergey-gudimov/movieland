@@ -19,5 +19,5 @@ public interface MovieService {
 
     List<Movie> getByGenreId(int genreId, Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort);
 
-    List<Movie> getById(int movieId);
+    Movie getById(int movieId);
 }
