@@ -75,9 +75,32 @@
         where mg.genre_id = ? ;"/>
     </bean>
 
-    <bean id="getGenreMaxIdSQL" class="java.lang.String">
+    <bean id="getMovieByIdSQL" class="java.lang.String">
         <constructor-arg value="
-        select max(id) id
-        from movieland.genre g;"/>
+       select
+            m.id,
+            m.name_russian,
+            m.name_native,
+            m.released_date,
+            m.plot description,
+            m.rating,
+            m.price,
+            m.picture_path
+        from movieland.movie m
+        where m.id = ? ;"/>
+    </bean>
+
+    <bean id="getReviewByMovieIdSQL" class="java.lang.String">
+        <constructor-arg value="
+       select id, user_id, description, movie_id
+        from movieland.review
+        where movie_id = ? ;"/>
+    </bean>
+
+    <bean id="getUserByIdSQL" class="java.lang.String">
+        <constructor-arg value="
+       select id, nickname
+        from movieland.user
+        where id = ?;"/>
     </bean>
 </beans>

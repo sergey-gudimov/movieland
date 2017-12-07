@@ -1,5 +1,6 @@
 package com.gudimov.movieland.controller;
 
+import com.gudimov.movieland.dto.MovieByIdDto;
 import com.gudimov.movieland.dto.MovieDto;
 import com.gudimov.movieland.dto.MovieRandomDto;
 import com.gudimov.movieland.entity.Movie;
@@ -43,10 +44,10 @@ public class MovieController {
         validatorSortParams.validate(sortOrderRating, sortOrderPrice);
         List<Movie> movies = movieService.getAll(sortOrderRating, sortOrderPrice);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
-        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        String movieJson = jsonJacksonConverter.ItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
 
-        return new ResponseEntity<>(movieJson, HttpStatus.OK);
+        return new ResponseEntity<>(movieJson, (movieJson == null) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK);
 
     }
 
@@ -59,9 +60,9 @@ public class MovieController {
         for (Movie movie : movies) {
             movieDtos.add(new MovieRandomDto(movie));
         }
-        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        String movieJson = jsonJacksonConverter.ItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
-        return new ResponseEntity<>(movieJson, HttpStatus.OK);
+        return new ResponseEntity<>(movieJson, (movieJson == null) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK);
 
     }
 
@@ -76,10 +77,22 @@ public class MovieController {
         validatorSortParams.validate(sortOrderRating, sortOrderPrice);
         List<Movie> movies = movieService.getByGenreId(genreId, sortOrderRating, sortOrderPrice);
         List<MovieDto> movieDtos = MovieDto.ConvertEntityListToDtoList(movies);
-        String movieJson = jsonJacksonConverter.parseItemToJson(movieDtos);
+        String movieJson = jsonJacksonConverter.ItemToJson(movieDtos);
         log.info("Movie {} is received", movieJson);
 
-        return new ResponseEntity<>(movieJson, HttpStatus.OK);
+        return new ResponseEntity<>(movieJson, (movieJson == null) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{movieId}")
+    @ResponseBody
+    public ResponseEntity<String> getById(@PathVariable int movieId) {
+        log.info("Sending request to get movie by id = {}", movieId);
+        Movie movie = movieService.getById(movieId);
+        MovieByIdDto movieByIdDto = new MovieByIdDto(movie);
+        String movieJson = jsonJacksonConverter.ItemToJson(movieByIdDto);
+        log.info("Movie {} is received", movieJson);
+
+        return new ResponseEntity<>(movieJson, (movieJson == null) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK);
     }
 }
 

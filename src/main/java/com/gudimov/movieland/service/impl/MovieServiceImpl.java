@@ -1,10 +1,6 @@
 package com.gudimov.movieland.service.impl;
 
-import com.gudimov.movieland.dao.MovieCountryDao;
 import com.gudimov.movieland.dao.MovieDao;
-import com.gudimov.movieland.dao.MovieGenreDao;
-import com.gudimov.movieland.dao.link.LinkMovieCountry;
-import com.gudimov.movieland.dao.link.LinkMovieGenre;
 import com.gudimov.movieland.entity.Movie;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
@@ -27,11 +23,6 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieDao movieDao;
 
-    @Autowired
-    private MovieGenreDao movieGenreDao;
-
-    @Autowired
-    private MovieCountryDao movieCountryDao;
 
     @Autowired
     private MovieEnricher movieEnricher;
@@ -43,7 +34,7 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getAll(Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
         LOG.info("Start service get all movies");
         List<Movie> movies = movieDao.getAll();
-        movieSorter.sortMovieList(movies,ratingSort, priceSort);
+        movieSorter.sortMovieList(movies, ratingSort, priceSort);
         LOG.info("Finish service get all movies");
         return movies;
     }
@@ -52,28 +43,28 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getRandom() {
         List<Movie> movies = movieDao.getRandom();
         LOG.info("Start enriched movie");
-        movieEnricher.enrichMovie(movies);
+        movieEnricher.enrichMovieList(movies);
         LOG.info("Finish enriched with countries and genres");
 
         return movies;
     }
 
     @Override
-    public List<LinkMovieGenre> getLinkMovieGenreAll() {
-        return movieGenreDao.getAll();
-    }
-
-    @Override
-    public List<LinkMovieCountry> getLinkMovieCountryAll() {
-        return movieCountryDao.getAll();
-    }
-
-    @Override
     public List<Movie> getByGenreId(int genreId, Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
-        LOG.info("Start service get movie by genre id = {}",genreId);
+        LOG.info("Start service get movie by genre id = {}", genreId);
         List<Movie> movies = movieDao.getByGenreId(genreId);
-        movieSorter.sortMovieList(movies,ratingSort, priceSort);
-        LOG.info("Finish service get movie by genre id = {}. Return movies {} ",genreId, movies);
+        movieSorter.sortMovieList(movies, ratingSort, priceSort);
+        LOG.info("Finish service get movie by genre id = {}. Return movies {} ", genreId, movies);
         return movies;
     }
+
+    @Override
+    public Movie getById(int movieId) {
+        LOG.info("Start service get movie by id = {}", movieId);
+        Movie movie = movieDao.getById(movieId);
+        movieEnricher.enrichMovie(movie);
+        LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movie);
+        return movie;
+    }
+
 }

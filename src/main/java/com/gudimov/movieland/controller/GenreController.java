@@ -36,10 +36,10 @@ public class GenreController {
         for (Genre genre : genres) {
             genreDtos.add(new GenreDto(genre));
         }
-        String genreJson = jsonJacksonConverter.parseItemToJson(genreDtos);
+        String genreJson = jsonJacksonConverter.ItemToJson(genreDtos);
         log.info("Genre {} is received", genreJson);
 
-        return new ResponseEntity<>(genreJson, HttpStatus.OK);
+        return new ResponseEntity<>(genreJson, (genreJson == null) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK);
 
     }
 }

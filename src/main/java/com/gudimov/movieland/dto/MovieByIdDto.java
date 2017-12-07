@@ -6,27 +6,31 @@ import com.gudimov.movieland.entity.Movie;
 
 import java.util.List;
 
-public class MovieRandomDto {
+public class MovieByIdDto {
     private final int id;
     private final String nameRussian;
     private final String nameNative;
     private final int yearOfRelease;
+    private final String description;
     private final double rating;
     private final double price;
     private final String picturePath;
     private final List<Genre> genre;
     private final List<Country> country;
+    private final List<ReviewDto> review;
 
-    public MovieRandomDto(Movie movie) {
+    public MovieByIdDto(Movie movie) {
         this.id = movie.getId();
         this.nameRussian = movie.getNameRussian();
         this.nameNative = movie.getNameNative();
         this.yearOfRelease = movie.getYearOfRelease();
+        this.description = movie.getDescription();
         this.rating = movie.getRating();
         this.price = movie.getPrice();
         this.picturePath = movie.getPicturePath();
         this.country = movie.getCountry();
         this.genre = movie.getGenre();
+        this.review = ReviewDto.convertEntityToDtoList(movie.getReview());
     }
 
     public int getId() {
@@ -43,6 +47,10 @@ public class MovieRandomDto {
 
     public int getYearOfRelease() {
         return yearOfRelease;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public double getRating() {
@@ -63,5 +71,9 @@ public class MovieRandomDto {
 
     public List<Country> getCountry() {
         return country;
+    }
+
+    public List<ReviewDto> getReview() {
+        return review;
     }
 }

@@ -29,10 +29,11 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     private String getMovieByGenreIdSQL;
 
+    @Autowired
+    private String getMovieByIdSQL;
 
     @Override
     public List<Movie> getAll() {
-
         LOG.info("Start query to get movie from DB");
         List<Movie> listMovie = jdbcTemplate.query(getAllMovieSQL, MOVIE_ROW_MAPPER);
         LOG.info("Finish query to get movie from DB");
@@ -54,10 +55,20 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getByGenreId(int genreId) {
         LOG.info("Start query to get movie by genre id = {} from DB", genreId);
 
-        List<Movie> listMovie = jdbcTemplate.query(getMovieByGenreIdSQL, MOVIE_ROW_MAPPER,genreId);
-        LOG.info("Finish query to get movie by genre id = {} from DB. Return movie = {}",genreId, listMovie);
+        List<Movie> listMovie = jdbcTemplate.query(getMovieByGenreIdSQL, MOVIE_ROW_MAPPER, genreId);
+        LOG.info("Finish query to get movie by genre id = {} from DB. Return movie = {}", genreId, listMovie);
 
         return listMovie;
+    }
+
+    @Override
+    public Movie getById(int movieId) {
+        LOG.info("Start query to get movie by  id = {} from DB", movieId);
+
+        Movie movie = jdbcTemplate.queryForObject(getMovieByIdSQL, MOVIE_ROW_MAPPER, movieId);
+        LOG.info("Finish query to get movie by id = {} from DB. Return movie = {}", movieId, movie);
+
+        return movie;
     }
 
 

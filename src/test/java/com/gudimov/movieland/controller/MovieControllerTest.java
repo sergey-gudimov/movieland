@@ -1,8 +1,6 @@
 package com.gudimov.movieland.controller;
 
-import com.gudimov.movieland.entity.Country;
-import com.gudimov.movieland.entity.Genre;
-import com.gudimov.movieland.entity.Movie;
+import com.gudimov.movieland.entity.*;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.sorter.SortOrder;
 import com.gudimov.movieland.service.sorter.ValidatorSortParams;
@@ -22,16 +20,13 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class MovieControllerTest {
-
     private MockMvc mockMvc;
+
     private Movie movieFirst = new Movie();
     private Movie movieSecond = new Movie();
-
     @Mock
     private MovieService movieServiceMock;
 
@@ -48,7 +43,6 @@ public class MovieControllerTest {
         setUpServiceMock();
     }
 
-
     private void setUpServiceMock() {
         movieFirst.setId(1);
         movieFirst.setNameNative("Day");
@@ -58,6 +52,30 @@ public class MovieControllerTest {
         movieFirst.setRating(4);
         movieFirst.setYearOfRelease(LocalDate.of(2018, 1, 1));
 
+        Country country1 = new Country();
+        country1.setId(1);
+        country1.setName("USA");
+
+        Country country2 = new Country();
+        country2.setId(2);
+        country2.setName("UK");
+        movieFirst.setCountry(Arrays.asList(country1, country2));
+
+        Genre genre1 = new Genre();
+        genre1.setId(1);
+        genre1.setName("драма");
+
+        Genre genre2 = new Genre();
+        genre2.setId(2);
+        genre2.setName("криминал");
+        movieFirst.setGenre(Arrays.asList(genre1, genre2));
+
+        Review review = new Review();
+        review.setId(1);
+        review.setText("Гениальное кино! Смотришь и думаешь");
+        review.setUser(new User().setId(1).setNickName("Дарлин Эдвардс"));
+        movieFirst.setReview(Arrays.asList(review));
+
         movieSecond.setId(2);
         movieSecond.setNameNative("Sea");
         movieSecond.setNameRussian("Море");
@@ -66,9 +84,35 @@ public class MovieControllerTest {
         movieSecond.setRating(5);
         movieSecond.setYearOfRelease(LocalDate.of(2018, 1, 1));
 
+        country1 = new Country();
+        country1.setId(1);
+        country1.setName("USA");
+
+        country2 = new Country();
+        country2.setId(2);
+        country2.setName("UK");
+        movieSecond.setCountry(Arrays.asList(country1, country2));
+
+        genre1 = new Genre();
+        genre1.setId(1);
+        genre1.setName("драма");
+
+        genre2 = new Genre();
+        genre2.setId(2);
+        genre2.setName("криминал");
+        movieSecond.setGenre(Arrays.asList(genre1, genre2));
+
+        review = new Review();
+        review.setId(2);
+        review.setText("Кино это является, безусловно, «со знаком качества».");
+        review.setUser(new User().setId(3).setNickName("Габриэль Джексон"));
+        movieSecond.setReview(Arrays.asList(review));
+
         when(movieServiceMock.getAll(Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
         when(movieServiceMock.getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
+        when(movieServiceMock.getById(eq(1))).thenReturn(movieFirst);
     }
+
 
     @Test
     public void getAllMovie() throws Exception {
@@ -211,7 +255,38 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("$[1].yearOfRelease", is(movieSecond.getYearOfRelease())))
         ;
         //Verify that the getByGenreId() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)),Optional.ofNullable(any(SortOrder.class)));
+        verify(movieServiceMock, times(1)).getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)));
+
+        //Ensure that no other methods of our mock object are called during the test.
+        verifyNoMoreInteractions(movieServiceMock);
+    }
+
+    @Test
+    public void getById() throws Exception {
+        mockMvc.perform(get("/v1/movie/1")).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("id", is(movieFirst.getId())))
+                .andExpect(jsonPath("nameNative", is(movieFirst.getNameNative())))
+                .andExpect(jsonPath("nameRussian", is(movieFirst.getNameRussian())))
+                .andExpect(jsonPath("picturePath", is(movieFirst.getPicturePath())))
+                .andExpect(jsonPath("price", is(movieFirst.getPrice())))
+                .andExpect(jsonPath("rating", is(movieFirst.getRating())))
+                .andExpect(jsonPath("yearOfRelease", is(movieFirst.getYearOfRelease())))
+                .andExpect(jsonPath("country[0].id", is(movieFirst.getCountry().get(0).getId())))
+                .andExpect(jsonPath("country[0].name", is(movieFirst.getCountry().get(0).getName())))
+                .andExpect(jsonPath("country[1].id", is(movieFirst.getCountry().get(1).getId())))
+                .andExpect(jsonPath("country[1].name", is(movieFirst.getCountry().get(1).getName())))
+                .andExpect(jsonPath("genre[0].id", is(movieFirst.getGenre().get(0).getId())))
+                .andExpect(jsonPath("genre[0].name", is(movieFirst.getGenre().get(0).getName())))
+                .andExpect(jsonPath("genre[1].id", is(movieFirst.getGenre().get(1).getId())))
+                .andExpect(jsonPath("genre[1].name", is(movieFirst.getGenre().get(1).getName())))
+                .andExpect(jsonPath("review[0].id", is(movieFirst.getReview().get(0).getId())))
+                .andExpect(jsonPath("review[0].text", is(movieFirst.getReview().get(0).getText())))
+                .andExpect(jsonPath("review[0].user.id", is(movieFirst.getReview().get(0).getUser().getId())))
+                .andExpect(jsonPath("review[0].user.nickName", is(movieFirst.getReview().get(0).getUser().getNickName())))
+        ;
+        //Verify that the getByGenreId() method of the Service interface is called only once.
+        verify(movieServiceMock, times(1)).getById(eq(1));
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);
