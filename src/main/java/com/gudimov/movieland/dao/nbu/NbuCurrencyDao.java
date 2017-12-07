@@ -34,9 +34,7 @@ public class NbuCurrencyDao implements CurrencyDao {
             LOG.error("Error create URL NBU rate", e);
             throw new RuntimeException("Error create URL NBU rate", e);
         }
-        OBJECT_MAPPER.configure(
-                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        try {
+       try {
             jsonNodeList = OBJECT_MAPPER.readValue(url, new TypeReference<List<JsonNode>>() {
             });
         } catch (IOException e) {
