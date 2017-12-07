@@ -9,20 +9,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JsonJacksonConverter {
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private static final Logger LOG = LoggerFactory.getLogger(JsonJacksonConverter.class);
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    public <T> String ItemToJson(T item) {
-
-        LOG.info("Start parsing item to json {}", item);
-        String itemJson = null;
+    public static <T> String itemToJson(T item){
         try {
-            itemJson = objectMapper.writeValueAsString(item);
+            return OBJECT_MAPPER.writeValueAsString(item);
         } catch (JsonProcessingException e) {
-            LOG.error("Error convert to json ", e);
+            LOG.error("Error convert item to json", e);
+            throw new RuntimeException("Error convert to json",e);
         }
-        LOG.info("Item {} is received.", item);
-        return itemJson;
     }
 }
