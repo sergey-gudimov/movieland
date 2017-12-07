@@ -2,9 +2,9 @@ package com.gudimov.movieland.dao.nbu;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gudimov.movieland.dao.CurrencyDao;
-import com.gudimov.movieland.dto.CurrencyDto;
 import com.gudimov.movieland.service.currency.CurrencyCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class NbuCurrencyDao implements CurrencyDao {
 
     @Override
     public Map<CurrencyCode, Double> getAll() {
-        List<CurrencyDto> currencyDtoList = null;
+        List<JsonNode> jsonNodeList = null;
         URL url = null;
         try {
             url = new URL(currencyNbuUrl);
@@ -37,7 +37,7 @@ public class NbuCurrencyDao implements CurrencyDao {
         OBJECT_MAPPER.configure(
                 DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
-            currencyDtoList = OBJECT_MAPPER.readValue(url, new TypeReference<List<CurrencyDto>>() {
+            jsonNodeList = OBJECT_MAPPER.readValue(url, new TypeReference<List<JsonNode>>() {
             });
         } catch (IOException e) {
             LOG.error("Error read NBU rate value ", e);
@@ -45,12 +45,11 @@ public class NbuCurrencyDao implements CurrencyDao {
         }
 
         Map<CurrencyCode, Double> currencyMap = new HashMap<>();
-        for (
-                CurrencyDto currencyDto : currencyDtoList)
-
-        {
-            if (CurrencyCode.contains(currencyDto.getCc())) {
-                currencyMap.put(CurrencyCode.getCurrencyByCode(currencyDto.getCc()), currencyDto.getRate());
+        for (JsonNode jsonNode : jsonNodeList) {
+            JsonNode cc = jsonNode.get("cc");
+            if (CurrencyCode.contains(cc.asText())) {
+                JsonNode rate = jsonNode.get("rate");
+                currencyMap.put(CurrencyCode.getCurrencyByCode(cc.asText()), rate.asDouble());
             }
         }
         return currencyMap;
