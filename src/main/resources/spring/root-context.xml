@@ -18,7 +18,8 @@
     </context:component-scan>
 
     <context:property-placeholder location="classpath:properties/db.properties,
-                                            classpath:properties/schedule.properties"/>
+                                            classpath:properties/schedule.properties,
+                                            classpath:properties/currency.properties"/>
 
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="1"/>

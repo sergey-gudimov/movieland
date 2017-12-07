@@ -1,7 +1,8 @@
-package com.gudimov.movieland.controller;
+package com.gudimov.movieland.web.controller;
 
 import com.gudimov.movieland.entity.*;
 import com.gudimov.movieland.service.MovieService;
+import com.gudimov.movieland.service.currency.CurrencyCode;
 import com.gudimov.movieland.service.sorter.SortOrder;
 import com.gudimov.movieland.service.sorter.ValidatorSortParams;
 import org.junit.Before;
@@ -110,7 +111,7 @@ public class MovieControllerTest {
 
         when(movieServiceMock.getAll(Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
         when(movieServiceMock.getByGenreId(eq(1), Optional.ofNullable(any(SortOrder.class)), Optional.ofNullable(any(SortOrder.class)))).thenReturn(Arrays.asList(movieFirst, movieSecond));
-        when(movieServiceMock.getById(eq(1))).thenReturn(movieFirst);
+        when(movieServiceMock.getById(eq(1), Optional.ofNullable(any(CurrencyCode.class)))).thenReturn(movieFirst);
     }
 
 
@@ -286,7 +287,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("review[0].user.nickName", is(movieFirst.getReview().get(0).getUser().getNickName())))
         ;
         //Verify that the getByGenreId() method of the Service interface is called only once.
-        verify(movieServiceMock, times(1)).getById(eq(1));
+        verify(movieServiceMock, times(1)).getById(eq(1), Optional.ofNullable(any(CurrencyCode.class)));
 
         //Ensure that no other methods of our mock object are called during the test.
         verifyNoMoreInteractions(movieServiceMock);

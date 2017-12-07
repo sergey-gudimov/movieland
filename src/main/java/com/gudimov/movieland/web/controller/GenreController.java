@@ -1,4 +1,4 @@
-package com.gudimov.movieland.controller;
+package com.gudimov.movieland.web.controller;
 
 import com.gudimov.movieland.dto.GenreDto;
 import com.gudimov.movieland.entity.Genre;
@@ -25,8 +25,6 @@ public class GenreController {
     @Autowired
     private GenreService genreService;
 
-    static private final JsonJacksonConverter jsonJacksonConverter = new JsonJacksonConverter();
-
     @RequestMapping
     @ResponseBody
     public ResponseEntity<String> getAll() {
@@ -36,7 +34,7 @@ public class GenreController {
         for (Genre genre : genres) {
             genreDtos.add(new GenreDto(genre));
         }
-        String genreJson = jsonJacksonConverter.itemToJson(genreDtos);
+        String genreJson = JsonJacksonConverter.itemToJson(genreDtos);
         log.info("Genre {} is received", genreJson);
 
         return new ResponseEntity<>(genreJson, HttpStatus.OK);

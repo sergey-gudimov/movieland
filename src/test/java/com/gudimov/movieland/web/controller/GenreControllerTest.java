@@ -1,4 +1,4 @@
-package com.gudimov.movieland.controller;
+package com.gudimov.movieland.web.controller;
 
 import com.gudimov.movieland.entity.Genre;
 import com.gudimov.movieland.service.GenreService;
