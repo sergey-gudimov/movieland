@@ -8,6 +8,7 @@ import com.gudimov.movieland.service.currency.CurrencyCode;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
 import com.gudimov.movieland.service.sorter.MovieSorter;
 import com.gudimov.movieland.service.sorter.SortOrder;
+import com.gudimov.movieland.util.CurrencyConversion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = movieDao.getById(movieId);
         movieEnricher.enrichMovie(movie);
         if (currencyCode.isPresent()) {
-            movie.setPrice(currencyService.convertCurrency(movie.getPrice(), currencyCode));
+            movie.setPrice(CurrencyConversion.priceConvert(movie.getPrice(), currencyService.getByCode(currencyCode)));
         }
         LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movie);
         return movie;
