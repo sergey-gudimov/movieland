@@ -22,7 +22,7 @@
                                             classpath:properties/currency.properties"/>
 
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
-    <task:executor id="executor" pool-size="1"/>
+    <task:executor id="executor" pool-size="2"/>
     <task:scheduler id="scheduler" pool-size="1"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
