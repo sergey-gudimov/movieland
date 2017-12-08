@@ -2,9 +2,9 @@ package com.gudimov.movieland.service.impl;
 
 import com.gudimov.movieland.dao.MovieDao;
 import com.gudimov.movieland.entity.Movie;
+import com.gudimov.movieland.service.CurrencyService;
 import com.gudimov.movieland.service.MovieService;
 import com.gudimov.movieland.service.currency.CurrencyCode;
-import com.gudimov.movieland.service.currency.CurrencyConverter;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
 import com.gudimov.movieland.service.sorter.MovieSorter;
 import com.gudimov.movieland.service.sorter.SortOrder;
@@ -32,7 +32,7 @@ public class MovieServiceImpl implements MovieService {
     private MovieSorter movieSorter;
 
     @Autowired
-    private CurrencyConverter currencyConverter;
+    private CurrencyService currencyService;
 
     @Override
     public List<Movie> getAll(Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
@@ -67,7 +67,9 @@ public class MovieServiceImpl implements MovieService {
         LOG.info("Start service get movie by id = {}, currency = {}", movieId, currencyCode);
         Movie movie = movieDao.getById(movieId);
         movieEnricher.enrichMovie(movie);
-        currencyConverter.convertCurrency(movie, currencyCode);
+        if (currencyCode.isPresent()) {
+            movie.setPrice(currencyService.convertCurrency(movie.getPrice(), currencyCode));
+        }
         LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movie);
         return movie;
     }

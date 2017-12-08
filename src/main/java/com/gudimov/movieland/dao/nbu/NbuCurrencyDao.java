@@ -1,7 +1,6 @@
 package com.gudimov.movieland.dao.nbu;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gudimov.movieland.dao.CurrencyDao;
@@ -34,7 +33,7 @@ public class NbuCurrencyDao implements CurrencyDao {
             LOG.error("Error create URL NBU rate", e);
             throw new RuntimeException("Error create URL NBU rate", e);
         }
-       try {
+        try {
             jsonNodeList = OBJECT_MAPPER.readValue(url, new TypeReference<List<JsonNode>>() {
             });
         } catch (IOException e) {
