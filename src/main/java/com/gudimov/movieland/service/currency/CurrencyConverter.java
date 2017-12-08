@@ -13,7 +13,7 @@ import java.util.Optional;
 public class CurrencyConverter {
     private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
 
     public void convertCurrency(Movie movie, Optional<CurrencyCode> currencyCode) {
         if (currencyCode.isPresent()) {
