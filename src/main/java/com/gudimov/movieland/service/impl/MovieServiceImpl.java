@@ -2,10 +2,13 @@ package com.gudimov.movieland.service.impl;
 
 import com.gudimov.movieland.dao.MovieDao;
 import com.gudimov.movieland.entity.Movie;
+import com.gudimov.movieland.service.CurrencyService;
 import com.gudimov.movieland.service.MovieService;
+import com.gudimov.movieland.service.currency.CurrencyCode;
 import com.gudimov.movieland.service.enricher.MovieEnricher;
 import com.gudimov.movieland.service.sorter.MovieSorter;
 import com.gudimov.movieland.service.sorter.SortOrder;
+import com.gudimov.movieland.util.CurrencyConversion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +26,14 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieDao movieDao;
 
-
     @Autowired
     private MovieEnricher movieEnricher;
 
     @Autowired
     private MovieSorter movieSorter;
+
+    @Autowired
+    private CurrencyService currencyService;
 
     @Override
     public List<Movie> getAll(Optional<SortOrder> ratingSort, Optional<SortOrder> priceSort) {
@@ -59,10 +64,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie getById(int movieId) {
-        LOG.info("Start service get movie by id = {}", movieId);
+    public Movie getById(int movieId, Optional<CurrencyCode> currencyCode) {
+        LOG.info("Start service get movie by id = {}, currency = {}", movieId, currencyCode);
         Movie movie = movieDao.getById(movieId);
         movieEnricher.enrichMovie(movie);
+        if (currencyCode.isPresent()) {
+            movie.setPrice(CurrencyConversion.priceConvert(movie.getPrice(), currencyService.getByCode(currencyCode)));
+        }
         LOG.info("Finish service get movie by id = {}. Return movies {} ", movieId, movie);
         return movie;
     }

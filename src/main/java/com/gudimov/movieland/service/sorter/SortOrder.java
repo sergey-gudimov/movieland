@@ -19,6 +19,6 @@ public enum SortOrder {
                 return sortOrder;
             }
         }
-        throw new IllegalArgumentException("Incorect sort direction " + direction);
+        throw new IllegalArgumentException("Incorrect sort direction " + direction);
     }
 }

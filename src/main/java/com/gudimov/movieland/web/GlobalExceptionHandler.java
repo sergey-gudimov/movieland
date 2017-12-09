@@ -1,7 +1,7 @@
 package com.gudimov.movieland.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gudimov.movieland.util.JsonJacksonConverter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,12 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
     public ResponseEntity<?> handlerException(RuntimeException e) {
-        String json = null;
-        try {
-            json = OBJECT_MAPPER.writeValueAsString(e.getMessage());
-        } catch (JsonProcessingException e1) {
-            e1.printStackTrace();
-        }
+        String json = JsonJacksonConverter.itemToJson(e.getMessage());
         HttpHeaders headers = new HttpHeaders();
         headers.add("JsonHeader", MediaType.APPLICATION_JSON_UTF8_VALUE);
         return new ResponseEntity<>(json, headers, HttpStatus.INTERNAL_SERVER_ERROR);
